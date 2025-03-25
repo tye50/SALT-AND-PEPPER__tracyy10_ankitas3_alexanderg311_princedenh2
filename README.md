@@ -1,1 +1,20 @@
-# SALT-AND-PEPPER__tracyy10_ankitas3_alexanderg311_princedenh2
+# (Title Here) by SALT&PEPPER
+
+## Roster & Roles
+Tracy Ye
+Ankita Saha
+Sascha Gordon-Zolov
+Princeden H.
+
+## Description
+...!!!
+
+## Install Guide
+1. ...!!!
+2. ...!!!
+3. ...!!!
+
+## Launch Codes
+1. ...!!!
+2. ...!!!
+3. ...!!!
