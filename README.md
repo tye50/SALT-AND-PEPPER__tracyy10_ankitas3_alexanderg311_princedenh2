@@ -4,10 +4,10 @@ Our website combs through a dataset of over 38,000 fake and true news articles t
 Added ability for users to write their own blocks of text to be rated “true” or “false.” Rather than being assigned a boolean true or false value, each article is rather given a score (some real number from 0 to 1) determining its truth value. This will turn our model from discrete to continuous, further allowing one to better understand the outputted data and allowing one to draw larger conclusions. 
 
 ## Roster & Roles
-Tracy Ye - Project Manager & DB
-Ankita Saha - Data Visualization/Cleaning & FEF (Bootstrap)
-Sascha Gordon-Zolov - Flask person
-Princeden H. - Pytorch/Data Classification
+Tracy Ye - Project Manager & DB <br />
+Ankita Saha - Data Visualization/Cleaning & FEF (Bootstrap) <br />
+Sascha Gordon-Zolov - Flask person <br />
+Princeden H. - Pytorch/Data Classification <br />
 
 ## Install Guide
 1. ...!!!
