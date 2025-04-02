@@ -6,6 +6,7 @@ from flask import redirect
 from flask import url_for
 from flask import flash
 import sqlite3
+app = Flask(__name__)
 
 @app.route("/")
 def main():
