@@ -10,11 +10,43 @@ Sascha Gordon-Zolov - Flask person <br />
 Princeden H. - Pytorch/Data Classification <br />
 
 ## Install Guide
-1. ...!!!
-2. ...!!!
-3. ...!!!
+1. Clone this repo
+```
+$ git clone git@github.com:tye50/SALT-AND-PEPPER__tracyy10_ankitas3_alexanderg311_princedenh2.git
+```
+3. Navigate into the cloned repo
+```
+$ cd SALT-AND-PEPPER__tracyy10_ankitas3_alexanderg311_princedenh2
+```
+4. Create a virtual environment
+```
+$ python3 -m venv foo
+```
+5. Activate your virtual environment
+```
+$ . foo/bin/activate
+```
+6. Install the packages required to run this program
+```
+$ pip install -r requirements.txt
+```
 
 ## Launch Codes
-1. ...!!!
-2. ...!!!
-3. ...!!!
+1. Navigate into the cloned repo
+```
+$ cd SALT-AND-PEPPER__tracyy10_ankitas3_alexanderg311_princedenh2
+```
+3. Launch the app
+```
+$ python3 app/__init__.py
+```
+5. Click on the link printed in your terminal
+```
+http://127.0.0.1:5000
+```
+
+## Alternative Launch Code
+1. Click on this link!
+```
+https://salt-and-pepper.tech/
+```
