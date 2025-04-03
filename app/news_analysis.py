@@ -17,6 +17,7 @@ def words_counts():
     real_title = real['title']
     fake_text_dict = {}
     fake_title_dict = {}
+    
     real_text_dict = {}
     real_title_dict = {}
     for i in range(0, len(fake_text)):
@@ -46,6 +47,30 @@ def words_counts():
             else:
                 real_text_dict[word] = 1
 
+def prevalency(article_dict, article_count):
+    words_count()
+    fake_article_count = len(fake)
+    real_article_count = len(real)
+    
+    high = 0
+    low = article_dict[0]
+    sum = 0
+    #loop through dictionary, make new dictionary with article count/word count for that word
+    #at the same time find highest and lowest count of word to get range
+    # get highest count/article, and lowest count/article
+    # sum all word count per article
+    # word count for one/total sum of word count for each word --> get that percent --> x 100 to return font size
+    for i in fake_a:
+      article_dict[i] = article_count / article_dict[i]
+      sum += article_dict[i]
+      if article_dict[i] > high:
+          high = article_dict[i]
+      if article_dict[i] < low:
+          low = article_dict[i]
+          
+    
+    
 #prevalency
 #for loop -- first word, check if any other wordsa in second loop (incrememnting by 1) is equal, add to count for that word, make key first i value, and value the count, move on to next key
 
+    
