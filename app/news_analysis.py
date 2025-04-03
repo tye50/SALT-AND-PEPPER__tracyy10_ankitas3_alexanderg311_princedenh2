@@ -3,13 +3,13 @@ import pandas as pd
 import os 
 
 fake = pd.read_csv(os.path.abspath('data/Fake.csv'))
+print(os.path.abspath('data/Fake.csv'))
 real = pd.read_csv(os.path.abspath('data/True.csv'))
 fake['true'] = 0
 real['true'] = 1
 news = pd.concat([fake, real], ignore_index = True)
-print(fake.head())
-print(real.head())
-print(news.head())
+bwqa==
+print(news.columns)
 def words_counts():
     fake_text = fake['text']
     fake_title = fake['title']
