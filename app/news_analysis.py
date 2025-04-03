@@ -4,12 +4,12 @@ import os
 
 fake = pd.read_csv(os.path.abspath('data/Fake (1).csv'))
 real = pd.read_csv(os.path.abspath('data/True (1).csv'))
+
 fake['true'] = 0
 real['true'] = 1
 news = pd.concat([fake, real], ignore_index = True)
-print(fake.head())
-print(real.head())
-print(news.head())
+#news.drop(['subject', 'date'], axis=1)
+print(news.head(10))
 def words_counts():
     fake_text = fake['text']
     fake_title = fake['title']
@@ -46,6 +46,7 @@ def words_counts():
                 real_text_dict[word] += 1
             else:
                 real_text_dict[word] = 1
+<<<<<<< HEAD
 
 def prevalency(article_dict, article_count):
     words_count()
@@ -70,6 +71,10 @@ def prevalency(article_dict, article_count):
           
     
     
+=======
+    print(len(fake_text_dict))
+words_counts()
+>>>>>>> 62a874e516c4aad5ae6aaada95af687fa558f5e2
 #prevalency
 #for loop -- first word, check if any other wordsa in second loop (incrememnting by 1) is equal, add to count for that word, make key first i value, and value the count, move on to next key
 
