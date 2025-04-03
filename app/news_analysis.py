@@ -2,8 +2,8 @@ import numpy as np
 import pandas as pd 
 import os 
 
-fake = pd.read_csv(os.path.abspath('data/Fake.csv'))
-real = pd.read_csv(os.path.abspath('data/True.csv'))
+fake = pd.read_csv(os.path.abspath('data/Fake (1).csv'))
+real = pd.read_csv(os.path.abspath('data/True (1).csv'))
 fake['true'] = 0
 real['true'] = 1
 news = pd.concat([fake, real], ignore_index = True)
@@ -45,4 +45,7 @@ def words_counts():
                 real_text_dict[word] += 1
             else:
                 real_text_dict[word] = 1
+
+#prevalency
+#for loop -- first word, check if any other wordsa in second loop (incrememnting by 1) is equal, add to count for that word, make key first i value, and value the count, move on to next key
 
