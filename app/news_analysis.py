@@ -87,7 +87,7 @@ def one():
     fake_article_count = len(fake)
     fake_article = prevalency(fake_text_dict, fake_article_count)
     
-    return fake_article
+    return fake_article[:10]
     
 def get_font_sizes():
     words_count()
