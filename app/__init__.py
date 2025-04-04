@@ -99,6 +99,13 @@ def prevalency(article_dict, article_count):
       font_size[j] = (article_dict[i]/high) * 100
     return font_size
           
+def one():
+    words_count()
+    
+    fake_article_count = len(fake)
+    fake_article = prevalency(fake_text_dict, fake_article_count)
+    
+    return fake_article[:10]
 
 def one_k():
     words_counts()
@@ -138,7 +145,8 @@ def main():
         return redirect("/dashbord")
     fake_article_k = one_k()
     fake_article_v = one_v()
-    return render_template("main.html", fake_article_k=fake_article_k, fake_article_v=fake_article_v)
+    fake = one()
+    return render_template("main.html", fake_article_k=fake_article_k, fake_article_v=fake_article_v, fake=fake)
 
 @app.route("/login")
 def login():
