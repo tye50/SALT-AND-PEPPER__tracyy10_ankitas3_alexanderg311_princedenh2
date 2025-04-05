@@ -49,26 +49,60 @@ real_title_dict = {}
 def words_counts():
     for i in range(0, len(fake_text)):
         title_words = fake_title[i].split(' ')
+        n=[]
+        rmov = "1234567890-=@#!$%^&*(),.:?/;[]{}"
+        for k in title_words:
+            k = k.lower()
+            for j in k:
+                if j in rmov:
+                    k = k.replace(j,"")
+            n.append(i)
+        
         text_words = fake_text[i].split(' ')
-        for word in title_words:
+        m=[]
+        for k in text_words:
+            k = k.lower()
+            for j in k:
+                if j in rmov:
+                    k = k.replace(j,"")
+            m.append(k)
+            
+        for word in n:
             if word in fake_title_dict.keys():
                 fake_title_dict[word] += 1
             else:
                 fake_title_dict[word] = 1
-        for word in text_words:
+        for word in m:
             if word in fake_text_dict.keys():
                 fake_text_dict[word] += 1
             else:
                 fake_text_dict[word] = 1
+                
     for i in range(0, len(real_text)):
-        title_words = real_title[i].split(' ')
-        text_words = real_text[i].split(' ')
-        for word in title_words:
+        title_words_r = real_title[i].split(' ')
+        r = []
+        for k in title_words_r:
+            k = k.lower()
+            for j in k:
+                if j in rmov:
+                    k = k.replace(j,"")
+            r.append(k)
+            
+        text_words_r = real_text[i].split(' ')
+        t=[]
+        for k in text_words_r:
+            k = k.lower()
+            for j in k:
+                if j in rmov:
+                    k = k.replace(j,"")
+            t.append(k)
+            
+        for word in r:
             if word in real_title_dict.keys():
                 real_title_dict[word] += 1
             else:
                 real_title_dict[word] = 1
-        for word in text_words:
+        for word in t:
             if word in real_text_dict.keys():
                 real_text_dict[word] += 1
             else:
@@ -84,19 +118,7 @@ def prevalency(article_dict, article_count):
     # get highest count/article, and lowest count/article
     # sum all word count per article
     # word count for one/total sum of word count for each word --> get that percent --> x 100 to return font size
-    rmov = "1234567890-=@#!$%^&*(),.:?"
-    p=""
-    c=0
-    for i in article_dict.copy():
-        for j in i:
-            if j in rmov:
-                c=1
-                p = i.replace(j,"")
-        if c==1:
-            v=article_dict[i]
-            article_dict.pop(i)
-            article_dict[p]=v
-            c=0
+   
                 
     for i in copy:
       if i.lower() in filler or i.upper() in filler:
@@ -119,10 +141,21 @@ def prevalency(article_dict, article_count):
       font_size[j] = (p[j]/high) * 100
       
     for j in font_size:
-      if font_size[j] >= low and font_size[j] <= .05:
+      print(font_size[j])
+      if font_size[j] >= low and font_size[j] <= .0002:
           font_size[j] = 10
-      elif font_size[j] > .05 and font_size[j] <= .2:
+      elif font_size[j] > .0002 and font_size[j] <= .0005:
+          font_size[j] = 15
+      elif font_size[j] > .0005 and font_size[j] <= .001:
           font_size[j] = 20
+      elif font_size[j] > .001 and font_size[j] <= .03:
+          font_size[j] = 20
+      elif font_size[j] > .03 and font_size[j] <= .04:
+          font_size[j] = 25
+      elif font_size[j] > .04 and font_size[j] <= .05:
+          font_size[j] = 20
+      elif font_size[j] > .05 and font_size[j] <= .2:
+          font_size[j] = 30
       elif font_size[j] > .2 and font_size[j] <= .5:
           font_size[j] = 30
       elif font_size[j] > .5 and font_size[j] <= 1:
@@ -150,11 +183,9 @@ def one():
     
     fake_article_count = len(fake)
     fake_article = prevalency(fake_text_dict, fake_article_count)
-    for i in fake_article:
-        print (i)
-        print(fake_article[i])
     
-    return dict(random.sample(list(fake_article.items()),50))
+    
+    return dict(random.sample(list(fake_article.items()),10))
 
 
 def fake_titles_words():
@@ -162,22 +193,18 @@ def fake_titles_words():
     
     fake_title_count = len(fake)
     fake_title = prevalency(fake_title_dict, fake_title_count)
-    for i in fake_title:
-        print (i)
-        print(fake_title[i])
+   
     
-    return dict(random.sample(list(fake_title.items()),50))
+    return dict(random.sample(list(fake_title.items()),10))
 
 def real_text_words():
     words_counts()
     
     real_article_count = len(real)
     real_article = prevalency(real_text_dict, real_article_count)
-    for i in real_article:
-        print (i)
-        print(real_article[i])
+   
     
-    return dict(random.sample(list(real_article.items()),50))
+    return dict(random.sample(list(real_article.items()),10))
 
     
 def real_titles_words():
@@ -185,7 +212,7 @@ def real_titles_words():
     
     real_title_count = len(real)
     real_title = prevalency(real_title_dict, real_title_count)
-    return dict(random.sample(list(real_title.items()),50))
+    return dict(random.sample(list(real_title.items()),10))
 
 
 @app.route("/")
