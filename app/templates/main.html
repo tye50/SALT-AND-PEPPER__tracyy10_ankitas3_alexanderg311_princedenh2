@@ -8,15 +8,17 @@
     <body>
         Mainnn
         {% for word in fake %}
-        <p id=" {{ word }}"> {{ word }} </p>
+        <p id="{{ word }}"> {{ word }} </p>
+        
         {% endfor %}
+        <p> {{ word }} </p>
     <body>
     
     <style>
-    {% for word in fake_article_k %}
+    {% for word in fake %}
     #{{ word }} {
         color: blue;
-        font-size: {{ fake_article_v[0] * 10 }}px;
+        font-size: {{ fake[word] }}px;
     }
 {% endfor %}
     </style>

@@ -1,7 +1,6 @@
 import numpy as np 
 import pandas as pd 
 import os
-import spacy
 
 fake = pd.read_csv(os.path.abspath('data/Fake (1).csv'))
 real = pd.read_csv(os.path.abspath('data/True (1).csv'))
