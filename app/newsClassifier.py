@@ -8,4 +8,4 @@ fake['true'] = 0
 real['true'] = 1
 news = pd.concat([fake, real], ignore_index = True)
 #news.drop(['subject', 'date'], axis=1)
-print(news.head(10))
+# print(news.head(10))
