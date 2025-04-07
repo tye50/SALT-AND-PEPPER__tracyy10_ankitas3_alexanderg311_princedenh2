@@ -55,7 +55,7 @@ def words_counts():
             k = k.lower()
             for j in k:
                 if j in rmov:
-                    k = k.replace(j,"")
+                    k = k.replace(j," ")
             n.append(i)
         
         text_words = fake_text[i].split(' ')
@@ -64,7 +64,7 @@ def words_counts():
             k = k.lower()
             for j in k:
                 if j in rmov:
-                    k = k.replace(j,"")
+                    k = k.replace(j," ")
             m.append(k)
             
         for word in n:
@@ -85,7 +85,7 @@ def words_counts():
             k = k.lower()
             for j in k:
                 if j in rmov:
-                    k = k.replace(j,"")
+                    k = k.replace(j," ")
             r.append(k)
             
         text_words_r = real_text[i].split(' ')
@@ -94,7 +94,7 @@ def words_counts():
             k = k.lower()
             for j in k:
                 if j in rmov:
-                    k = k.replace(j,"")
+                    k = k.replace(j," ")
             t.append(k)
             
         for word in r:
@@ -185,6 +185,7 @@ def one():
     fake_article = prevalency(fake_text_dict, fake_article_count)
     
     
+    
     return dict(random.sample(list(fake_article.items()),10))
 
 
@@ -220,7 +221,8 @@ def main():
     if 'username' in session:
         return redirect("/dashbord")
     fake = one()
-    return render_template("main.html", fake=fake)
+    real = real_text_words()
+    return render_template("main.html", fake=fake, real=real)
 
 @app.route("/login")
 def login():
@@ -261,3 +263,7 @@ def generate():
 if __name__ == "__main__":
     app.debug = True
     app.run()
+    
+    #change replace to space
+    # copy db
+    #copy css

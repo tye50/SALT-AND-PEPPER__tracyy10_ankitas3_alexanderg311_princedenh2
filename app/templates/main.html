@@ -11,14 +11,34 @@
         <p id="{{ word }}"> {{ word }} </p>
         
         {% endfor %}
-        <p> {{ word }} </p>
+        
+        {% for realword in real %}
+        <p id="{{ realword }}"> {{ realword }} </p>
+        
+        {% endfor %}
+      
     <body>
     
     <style>
     {% for word in fake %}
     #{{ word }} {
-        color: blue;
+        color: red;
         font-size: {{ fake[word] }}px;
+        border-color: black;
+        border-radius: 30px;
+        display: inline-grid;
+        grid-template-columns: auto auto auto;
+    }
+{% endfor %}
+
+{% for realword in real %}
+    #{{ realword }} {
+        color: blue;
+        font-size: {{ fake[realword] }}px;
+        border-color: black;
+        border-radius: 30px;
+        display: inline-grid;
+        grid-template-columns: auto auto auto;
     }
 {% endfor %}
     </style>
