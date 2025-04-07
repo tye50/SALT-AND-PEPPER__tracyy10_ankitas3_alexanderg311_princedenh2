@@ -10,13 +10,4 @@ def build():
     
     database.commit()
     database.close()
-
-def connect():
-    db = sqlite3.connect("SALT.db")
-    c = db.cursor()
-    return c, db
-
-def close(db):
-    db.commit()
-    db.close()
     
