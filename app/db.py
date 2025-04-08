@@ -50,4 +50,9 @@ def returnFontTable():
     c.execute("SELECT * FROM fonts")
     return c.fetchall()
 
+def deleteFontTable():
+    fonts = sqlite3.connect(USER_FILE)
+    c = fonts.cursor()
+    c.execute("DROP table fonts")
+
 
