@@ -4,7 +4,8 @@ USER_FILE = "SALT.db"
 def build():
     createUsers()
     createArticleInfo()
-    createFontSizeInfo()
+    createFontSizeInfoF()
+    createFontSizeInfoR()
     #c.execute("CREATE TABLE IF NOT EXISTS loaded_articles(link TEXT, rating_percentage INTEGER)")
     
     
@@ -32,22 +33,45 @@ def updateArticleInfo(username, title, content):
     c.execute("UPDATE webinfo SET title=?, content=? WHERE username=?", (title, content, username))
     users.commit()
     
-def createFontSizeInfo():
-    fonts = sqlite3.connect(USER_FILE)
-    c = fonts.cursor()
-    c.execute("CREATE TABLE IF NOT EXISTS fonts(word TEXT, size REAL)")
-    fonts.commit()
+def createFontSizeInfoF():
+    fontsF = sqlite3.connect(USER_FILE)
+    c = fontsF.cursor()
+    c.execute("CREATE TABLE IF NOT EXISTS fontsF(word TEXT, size REAL)")
+    fontsF.commit()
     
-def addFontSizeInfo(word, size):
-    fonts = sqlite3.connect(USER_FILE)
-    c = fonts.cursor()
-    c.execute("INSERT INTO fonts (word, size) VALUES (?, ?)", (word, size))
-    fonts.commit()
+def createFontSizeInfoR():
+    fontsR = sqlite3.connect(USER_FILE)
+    c = fontsR.cursor()
+    c.execute("CREATE TABLE IF NOT EXISTS fontsR(word TEXT, size REAL)")
+    fontsR.commit()
+    
+def addFontSizeInfoF(word, size):
+    fontsF = sqlite3.connect(USER_FILE)
+    c = fontsF.cursor()
+    c.execute("INSERT INTO fontsF(word, size) VALUES (?, ?)", (word, size))
+    fontsF.commit()
 
-def returnFontTable():
-    fonts = sqlite3.connect(USER_FILE)
-    c = fonts.cursor()
-    c.execute("SELECT * FROM fonts")
+def addFontSizeInfoR(word, size):
+    fontsR = sqlite3.connect(USER_FILE)
+    c = fontsR.cursor()
+    c.execute("INSERT INTO fontsR(word, size) VALUES (?, ?)", (word, size))
+    fontsR.commit()
+
+def returnFontTableF():
+    fontsF = sqlite3.connect(USER_FILE)
+    c = fontsF.cursor()
+    c.execute("SELECT * FROM fontsF")
     return c.fetchall()
+
+def returnFontTableR():
+    fontsR = sqlite3.connect(USER_FILE)
+    c = fontsR.cursor()
+    c.execute("SELECT * FROM fontsR")
+    return c.fetchall()
+
+def deleteFontTableF():
+    fontsF = sqlite3.connect(USER_FILE)
+    c = fontsF.cursor()
+    c.execute("DELETE FROM fontsF")
 
 
