@@ -20,19 +20,14 @@ real['true'] = 1
 news = pd.concat([fake, real], ignore_index = True)
 news.drop(['subject', 'date'], axis=1, inplace=True)
 
-print(news.head(10))
-print(news.columns)
 x = news[['title', 'text']]
 y = news['true']
 X_train, X_test, y_train, y_test = train_test_split(x, y, test_size=0.2, random_state=42)
 tfidf_vectorizer = TfidfVectorizer()
 X_train_tfidf = tfidf_vectorizer.fit_transform(X_train["title"] + " " + X_train["text"])
-print(X_train_tfidf)
+
 X_test_tfidf = tfidf_vectorizer.transform(X_test["title"] + " " + X_test["text"])
 
-
-print(x)
-print(y)
 
 
 
@@ -46,7 +41,11 @@ print(f"{model.__class__.__name__}: {accuracy*100:.2f}")
 print("-"*30)
 filename = 'finalized_model.sav'
 pickle.dump(model, open(filename, 'wb'))
-prediction = model.predict(tfidf_vectorizer.transform(["""" 
+loaded_model = pickle.load(open(filename, 'rb'))
+result = loaded_model.score(X_test, y_test)
+print(result)
+def predict(text):
+    prediction = model.predict(tfidf_vectorizer.transform(["""" 
 
 Layoffs, price hikes, retaliation: What workers can expect from Trump’s trade war
 April 3, 2025	12:51 PM CDT By C.J. Atkins
