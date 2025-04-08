@@ -14,6 +14,7 @@ import random
 
 import sqlite3
 import db
+from db import *
 
 import news_analysis
 
@@ -87,15 +88,12 @@ def words_counts():
         title_words_r = real_title[i].split(' ')
         r = []
         for k in title_words_r:
-            print("word: " + str(k))
             k = k.lower()
             for j in k:
                 if j in rmov:
                     k = k.replace(j," ")
             pli = k.split(" ")
-            print(k)
             for b in pli:
-                print("new: " + str(b))
                 r.append(b)
             
         text_words_r = real_text[i].split(' ')
@@ -121,6 +119,7 @@ def words_counts():
                 real_text_dict[word] = 1
  
 def prevalency(article_dict, article_count):
+    words_counts()
     high = 0
     low = list(article_dict.values())[0]
     total = 0
@@ -129,14 +128,13 @@ def prevalency(article_dict, article_count):
     #at the same time find highest and lowest count of word to get range
     # get highest count/article, and lowest count/article
     # sum all word count per article
-    # word count for one/total sum of word count for each word --> get that percent --> x 100 to return font size
-   
-                
+    # word count for one/total sum of word count for each word --> get that percent --> x 100 to return font size     
     for i in copy:
       if i.lower() in filler or i.upper() in filler:
           article_dict.pop(i)
     
     p = dict(list(article_dict.items()))
+    op=""
     for i in p:
       p[i] = (p[i]/article_count)
       total += p[i]
@@ -153,76 +151,62 @@ def prevalency(article_dict, article_count):
       font_size[j] = (p[j]/high) * 100
       
     for j in font_size:
-      print(font_size[j])
-      if font_size[j] >= low and font_size[j] <= .0002:
+      if font_size[j] >= low and font_size[j] <= .0001:
           font_size[j] = 10
-      elif font_size[j] > .0002 and font_size[j] <= .0005:
+      elif font_size[j] > .0001 and font_size[j] <= .0002:
           font_size[j] = 15
-      elif font_size[j] > .0005 and font_size[j] <= .001:
+      elif font_size[j] > .0002 and font_size[j] <= .0005:
           font_size[j] = 20
-      elif font_size[j] > .001 and font_size[j] <= .03:
-          font_size[j] = 20
-      elif font_size[j] > .03 and font_size[j] <= .04:
-          font_size[j] = 25
+      elif font_size[j] > .0005 and font_size[j] <= .01:
+          font_size[j] = 30
+      elif font_size[j] > .01 and font_size[j] <= .03:
+          font_size[j] = 45
       elif font_size[j] > .04 and font_size[j] <= .05:
-          font_size[j] = 20
-      elif font_size[j] > .05 and font_size[j] <= .2:
-          font_size[j] = 30
-      elif font_size[j] > .2 and font_size[j] <= .5:
-          font_size[j] = 30
-      elif font_size[j] > .5 and font_size[j] <= 1:
-          font_size[j] = 40
-      elif font_size[j] > low+(4*rate) and font_size[j] <= low + (5*rate):
-          font_size[j] = 50
-      elif font_size[j] > low+(5*rate) and font_size[j] <= low + (6*rate):
-          font_size[j] = 50
-      elif font_size[j] > low+(6*rate) and font_size[j] <= low + (7*rate):
           font_size[j] = 60
-      elif font_size[j] > low+(7*rate) and font_size[j] <= low + (8*rate):
+      elif font_size[j] > .05 and font_size[j] <= .2:
           font_size[j] = 70
-      elif font_size[j] > low+(8*rate) and font_size[j] <= low + (9*rate):
+      elif font_size[j] > .2 and font_size[j] <= .5:
+          font_size[j] = 70
+      elif font_size[j] > .5 and font_size[j] <= 1:
+          font_size[j] = 75
+      elif font_size[j] > low+(4*rate) and font_size[j] <= low + (5*rate):
           font_size[j] = 80
-      elif font_size[j] > low+(9*rate) and font_size[j] <= low + (10*rate):
+      elif font_size[j] > low+(5*rate) and font_size[j] <= low + (6*rate):
+          font_size[j] = 80
+      elif font_size[j] > low+(6*rate) and font_size[j] <= low + (7*rate):
           font_size[j] = 90
-      elif font_size[j] > low+(10*rate) and font_size[j] <= low + (11*rate):
+      elif font_size[j] > low+(7*rate) and font_size[j] <= low + (8*rate):
+          font_size[j] = 90
+      elif font_size[j] > low+(8*rate) and font_size[j] <= low + (9*rate):
+          font_size[j] = 95
+      elif font_size[j] > low+(9*rate) and font_size[j] <= low + (10*rate):
           font_size[j] = 100
+      elif font_size[j] > low+(10*rate) and font_size[j] <= low + (11*rate):
+          font_size[j] = 120
       else:
           font_size[j] = 100
     return font_size
           
 def one():
-    words_counts()
-    
     fake_article_count = len(fake)
     fake_article = prevalency(fake_text_dict, fake_article_count)
-    
-    
-    
-    return dict(random.sample(list(fake_article.items()),10))
+    for i in dict(random.sample(list(fake_article.items()),25)):
+        addFontSizeInfo(i, fake_article[i])
+    return returnFontTable()
 
 
 def fake_titles_words():
-    words_counts()
-    
     fake_title_count = len(fake)
     fake_title = prevalency(fake_title_dict, fake_title_count)
-   
-    
     return dict(random.sample(list(fake_title.items()),10))
 
 def real_text_words():
-    words_counts()
-    
     real_article_count = len(real)
     real_article = prevalency(real_text_dict, real_article_count)
-   
-    
-    return dict(random.sample(list(real_article.items()),10))
+    return dict(random.sample(list(real_article.items()),25))
 
     
 def real_titles_words():
-    words_count()
-    
     real_title_count = len(real)
     real_title = prevalency(real_title_dict, real_title_count)
     return dict(random.sample(list(real_title.items()),10))
@@ -230,10 +214,11 @@ def real_titles_words():
 
 @app.route("/")
 def main():
+    createFontSizeInfo()
     if 'username' in session:
         return redirect("/dashbord")
     fake = one()
-    real = real_text_words()
+    #real = real_text_words()
     return render_template("main.html", fake=fake, real=real)
 
 @app.route("/login")
@@ -274,8 +259,5 @@ def generate():
 
 if __name__ == "__main__":
     app.debug = True
+
     app.run()
-    
-    #change replace to space
-    # copy db
-    #copy css
