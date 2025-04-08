@@ -23,3 +23,5 @@ ankitaS -- 2025-04-03 21:38
 - added function to return font size based on prevalence
 - halfway through putting up actual words on site based on prevalency
 
+tracyY -- 2025-04-07 ??:??
+- the ip address is finally serving the right thing, piazza post on the domain though
