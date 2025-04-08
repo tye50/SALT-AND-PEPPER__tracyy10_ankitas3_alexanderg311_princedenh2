@@ -45,7 +45,7 @@ def words_counts():
                 real_text_dict[word] += 1
             else:
                 real_text_dict[word] = 1
-    print(len(fake_text_dict))
+    print(real_text_dict['the'])
 words_counts()
 #prevalency
 #for loop -- first word, check if any other wordsa in second loop (incrememnting by 1) is equal, add to count for that word, make key first i value, and value the count, move on to next key
