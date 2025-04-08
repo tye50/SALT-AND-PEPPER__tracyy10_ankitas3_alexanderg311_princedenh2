@@ -30,3 +30,8 @@ ankitaS -- 2024-04-04 16:34
 
 tracyY -- 2025-04-07 ??:??
 - the ip address is finally serving the right thing, piazza post on the domain though
+
+ankitaS -- 2024-0407 21:43
+- moved function outputs from dictiion ary to db
+- made db functions
+- fixed word space issue with certain items in words list
