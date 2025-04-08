@@ -23,24 +23,26 @@
     {% for word in fake %}
     #{{ word[0] }} {
         color: red;
-        font-size: {{ word[1] }}px;
         border-color: black;
         border-radius: 30px;
         display: inline-grid;
         margin: 30px;
         grid-template-columns: auto auto auto;
+        font-size: {{ word[1] }}px;
+        
     }
 {% endfor %}
 
 {% for realword in real %}
     #{{ realword[0] }} {
         color: blue;
-        font-size: {{ realword[1] }}px;
         border-color: black;
         border-radius: 30px;
         display: inline-grid;
         margin: 30px;
         grid-template-columns: auto auto auto;
+        font-size: {{ realword[1] }}px;
+        
     }
 {% endfor %}
     </style>
