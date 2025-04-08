@@ -261,4 +261,8 @@ def generate():
 
 if __name__ == "__main__":
     app.debug = True
+<<<<<<< HEAD
     app.run()
+=======
+    app.run()
+>>>>>>> 754c36d261afc6e96db57df4c160e6415a7ba827
