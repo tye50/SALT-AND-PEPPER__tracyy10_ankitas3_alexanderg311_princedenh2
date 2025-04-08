@@ -35,8 +35,7 @@ def updateArticleInfo(username, title, content):
 def createFontSizeInfo():
     fonts = sqlite3.connect(USER_FILE)
     c = fonts.cursor()
-    c.execute("CREATE TABLE IF NOT EXISTS articles(word TEXT, fontSize REAL")
-    c.execute(command)
+    c.execute("CREATE TABLE IF NOT EXISTS fonts(word TEXT, size REAL)")
     fonts.commit()
     
 def addFontSizeInfo(word, size):

@@ -94,7 +94,6 @@ def words_counts():
                     k = k.replace(j," ")
             pli = k.split(" ")
             for b in pli:
-                print("new: " + str(b))
                 r.append(b)
             
         text_words_r = real_text[i].split(' ')
@@ -191,10 +190,9 @@ def prevalency(article_dict, article_count):
 def one():
     fake_article_count = len(fake)
     fake_article = prevalency(fake_text_dict, fake_article_count)
-    for i in fake_article:
+    for i in dict(random.sample(list(fake_article.items()),25)):
         addFontSizeInfo(i, fake_article[i])
-        
-    return (random.sample(returnFontTable()),25)
+    return returnFontTable()
 
 
 def fake_titles_words():
@@ -220,7 +218,7 @@ def main():
     if 'username' in session:
         return redirect("/dashbord")
     fake = one()
-    real = real_text_words()
+    #real = real_text_words()
     return render_template("main.html", fake=fake, real=real)
 
 @app.route("/login")
@@ -261,8 +259,5 @@ def generate():
 
 if __name__ == "__main__":
     app.debug = True
-<<<<<<< HEAD
+
     app.run()
-=======
-    app.run()
->>>>>>> 754c36d261afc6e96db57df4c160e6415a7ba827
