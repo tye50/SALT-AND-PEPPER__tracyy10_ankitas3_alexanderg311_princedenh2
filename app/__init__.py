@@ -47,16 +47,19 @@ real_text_dict = {}
 real_title_dict = {}
     
 def words_counts():
+    pli = []
     for i in range(0, len(fake_text)):
         title_words = fake_title[i].split(' ')
         n=[]
-        rmov = "1234567890-=@#!$%^&*(),.:?/;[]{}"
+        rmov = "1234567890-=@#!$%^&*(),.:?/;[]_{}+<>'\""
         for k in title_words:
             k = k.lower()
             for j in k:
                 if j in rmov:
                     k = k.replace(j," ")
-            n.append(i)
+            pli = k.split(' ')
+            for b in pli:
+                n.append(b)
         
         text_words = fake_text[i].split(' ')
         m=[]
@@ -65,7 +68,9 @@ def words_counts():
             for j in k:
                 if j in rmov:
                     k = k.replace(j," ")
-            m.append(k)
+            pli = k.split(' ')
+            for b in pli:
+                m.append(b)
             
         for word in n:
             if word in fake_title_dict.keys():
@@ -82,11 +87,16 @@ def words_counts():
         title_words_r = real_title[i].split(' ')
         r = []
         for k in title_words_r:
+            print("word: " + str(k))
             k = k.lower()
             for j in k:
                 if j in rmov:
                     k = k.replace(j," ")
-            r.append(k)
+            pli = k.split(" ")
+            print(k)
+            for b in pli:
+                print("new: " + str(b))
+                r.append(b)
             
         text_words_r = real_text[i].split(' ')
         t=[]
@@ -95,7 +105,9 @@ def words_counts():
             for j in k:
                 if j in rmov:
                     k = k.replace(j," ")
-            t.append(k)
+            pli = k.split(' ')
+            for b in pli:
+                t.append(b)
             
         for word in r:
             if word in real_title_dict.keys():
