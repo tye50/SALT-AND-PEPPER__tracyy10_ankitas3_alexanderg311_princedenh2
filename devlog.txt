@@ -13,10 +13,13 @@ tracyY -- 2025-04-01 06:31
 ankitaS -- 2025-04-01 10:20
 - addeded summary of project to readme
 
-<<<<<<< HEAD
 princedenH -- 2025-04-02 10:20
 - added word counting function to news_analysis.py
-=======
+
 tracyY -- 2025-04-03 6:16
 - added base html files and routing, updated README
->>>>>>> 285f04a655488843c6178f907602cd0ea3f90926
+
+ankitaS -- 2025-04-03 21:38
+- added function to return font size based on prevalence
+- halfway through putting up actual words on site based on prevalency
+
