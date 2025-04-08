@@ -23,3 +23,15 @@ ankitaS -- 2025-04-03 21:38
 - added function to return font size based on prevalence
 - halfway through putting up actual words on site based on prevalency
 
+ankitaS -- 2024-04-04 16:34
+- added prilimary function to resize words based on their prevalancy
+- data cleaning to remove characters from words
+- debuggin function to get optimatal function for prevalency
+
+tracyY -- 2025-04-07 ??:??
+- the ip address is finally serving the right thing, piazza post on the domain though
+
+ankitaS -- 2024-0407 21:43
+- moved function outputs from dictiion ary to db
+- made db functions
+- fixed word space issue with certain items in words list
