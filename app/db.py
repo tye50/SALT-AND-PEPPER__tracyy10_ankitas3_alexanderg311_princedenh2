@@ -5,6 +5,7 @@ USER_FILE = "SALT.db"
 def build():
     createUsers()
     createArticleInfo()
+    createWordCountInfo()
     createFontSizeInfoF()
     createFontSizeInfoR()
     #c.execute("CREATE TABLE IF NOT EXISTS loaded_articles(link TEXT, rating_percentage INTEGER)")
@@ -24,6 +25,38 @@ def createArticleInfo():
     c.execute("CREATE TABLE IF NOT EXISTS articles(title TEXT, content TEXT)")
     c.execute(command)
     articles.commit()
+    
+def createWordCountInfoF():
+    wordCountF = sqlite3.connect(USER_FILE)
+    c = wordCountF.cursor()
+    c.execute("CREATE TABLE IF NOT EXISTS wordCountF(word TEXT, count TEXT)")
+    c.execute(command)
+    wordCountF.commit()
+    
+def createWordCountInfoR():
+    wordCountR = sqlite3.connect(USER_FILE)
+    c = wordCountR.cursor()
+    c.execute("CREATE TABLE IF NOT EXISTS wordCountR(word TEXT, count TEXT)")
+    c.execute(command)
+    wordCountR.commit()
+    
+def addWordCountInfoF(word, count):
+    wordCountF = sqlite3.connect(USER_FILE)
+    c = wordCountF.cursor()
+    c.execute("INSERT INTO wordCountF(word, count) VALUES (?, ?)", (word, count))
+    wordCountF.commit()
+    
+def addWordCountInfoR(word, count):
+    wordCountR = sqlite3.connect(USER_FILE)
+    c = wordCountR.cursor()
+    c.execute("INSERT INTO wordCountR(word, count) VALUES (?, ?)", (word, count))
+    wordCountR.commit()
+
+def returnWordCount():
+    wordCount = sqlite3.connect(USER_FILE)
+    c = wordCount.cursor()
+    c.execute("SELECT * FROM wordCount")
+    return c.fetchall()
     
     
 def updateArticleInfo(username, title, content):
