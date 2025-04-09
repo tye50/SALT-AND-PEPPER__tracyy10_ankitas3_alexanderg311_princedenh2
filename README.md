@@ -46,7 +46,7 @@ http://127.0.0.1:5000
 ```
 
 ## Alternative Launch Code
-1. Click on this link!
+1. Follow this link!
 ```
 http://138.197.96.116:5000
 ```
