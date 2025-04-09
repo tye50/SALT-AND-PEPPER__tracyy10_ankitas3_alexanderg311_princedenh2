@@ -6,16 +6,12 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <body>
-        
-         {% for realword in real %}
-        <div class = "container">
-        <div id="{{ realword }}"> {{ realword }} </div>
-        </div>
-        {% endfor %}
-        
+
+ 
+
         {% for word in fake %}
         <div class = "container">
-        <div id="{{ word }}"> {{ word }} </div>
+        <div id="{{ word[0] }}" class="rounded-pill"> {{ word[0] }} </div>
         </div>
         {% endfor %}
         
@@ -25,22 +21,36 @@
         </div>
         {% endfor %}
 
-    <body>
+
+    </body>
     
     <style>
     {% for word in fake %}
     #{{ word[0] }} {
         color: red;
         font-size: {{ word[1] }}px;
+        border-color: black;
+        border-radius: 30px;
+        display: inline-grid;
+        margin: 30px;
+        grid-template-columns: auto auto auto;
+        
     }
 {% endfor %}
 
 {% for realword in real %}
-    #{{ realword }} {
+    #{{ realword[0] }} {
+        font-size: {{ realword[1] }}px;
         color: blue;
-        font-size: {{ fake[realword] }}px;
+        border-color: black;
+        border-radius: 30px;
+        display: inline-grid;
+        margin: 30px;
+        grid-template-columns: auto auto auto;
+        
     }
 {% endfor %}
+
 
     .container {
   display: inline-grid;
