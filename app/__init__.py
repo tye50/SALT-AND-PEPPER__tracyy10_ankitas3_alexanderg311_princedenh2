@@ -233,28 +233,28 @@ def register():
 def dashboard():
     if not 'username' in session:
         # add flash
-        return redirect("/main")
+        return redirect("/")
     return render_template("dashboard.html")
 
 @app.route("/search")
 def search():
     if not 'username' in session:
         # add flash
-        return redirect("/main")
+        return redirect("/")
     return render_template("search.html")
 
-@app.route("/analyze")
+@app.route("/analyze", methods=['POST', 'GET'])
 def analyze():
     if not 'username' in session:
         # add flash
-        return redirect("/main")
+        return redirect("/analyze")
     return render_template("analyze.html")
 
 @app.route("/generate")
 def generate():
     if not 'username' in session:
         # add flash
-        return redirect("/main")
+        return redirect("/")
     return render_template("generate.html")
 
 if __name__ == "__main__":
