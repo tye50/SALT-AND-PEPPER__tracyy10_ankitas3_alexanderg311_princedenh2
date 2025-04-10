@@ -31,7 +31,7 @@ ankitaS -- 2024-04-04 16:34
 tracyY -- 2025-04-07 ??:??
 - the ip address is finally serving the right thing, piazza post on the domain though
 
-ankitaS -- 2024-0407 21:43
+ankitaS -- 2024-04-07 21:43
 - moved function outputs from dictiion ary to db
 - made db functions
 - fixed word space issue with certain items in words list
@@ -44,3 +44,13 @@ princedenH - 2025-04-08 11:01
 - began researching text generator 
 - updated sci kit model 
 
+tracyY - 2025-04-10 06:13
+- sentiment API is in place (still on my branch)
+
+DESIGN REVISIONS THUS FAR:
+------------------------------------
+====================================
+- Found the sentiment API (still need to register pull request)
+- New SQLite3 tables have been added
+- Articles table is now words and prevalence table
+- Deleted one of the linked datasets (both kaggle resources contained the same two csv files)
