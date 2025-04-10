@@ -214,12 +214,12 @@ def real_titles_words():
 
 @app.route("/")
 def main():
-    createFontSizeInfo()
-    if 'username' in session:
-        return redirect("/dashbord")
-    fake = one()
+#     createFontSizeInfo()
+#     if 'username' in session:
+#         return redirect("/dashbord")
+#     fake = one()
     #real = real_text_words()
-    return render_template("main.html", fake=fake, real=real)
+    return render_template("analyze.html", fake=fake, real=real)
 
 @app.route("/login")
 def login():
@@ -247,7 +247,7 @@ def search():
 def analyze():
     if not 'username' in session:
         # add flash
-        return redirect("/analyze")
+        return redirect("/")
     return render_template("analyze.html")
 
 @app.route("/generate")
