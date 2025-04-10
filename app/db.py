@@ -29,15 +29,13 @@ def createArticleInfo():
 def createWordCountInfoF():
     wordCountF = sqlite3.connect(USER_FILE)
     c = wordCountF.cursor()
-    c.execute("CREATE TABLE IF NOT EXISTS wordCountF(word TEXT, count TEXT)")
-    c.execute(command)
+    c.execute("CREATE TABLE IF NOT EXISTS wordCountF(word TEXT, count INT)")
     wordCountF.commit()
     
 def createWordCountInfoR():
     wordCountR = sqlite3.connect(USER_FILE)
     c = wordCountR.cursor()
-    c.execute("CREATE TABLE IF NOT EXISTS wordCountR(word TEXT, count TEXT)")
-    c.execute(command)
+    c.execute("CREATE TABLE IF NOT EXISTS wordCountR(word TEXT, count INT)")
     wordCountR.commit()
     
 def addWordCountInfoF(word, count):
@@ -51,13 +49,37 @@ def addWordCountInfoR(word, count):
     c = wordCountR.cursor()
     c.execute("INSERT INTO wordCountR(word, count) VALUES (?, ?)", (word, count))
     wordCountR.commit()
-
-def returnWordCount():
-    wordCount = sqlite3.connect(USER_FILE)
-    c = wordCount.cursor()
-    c.execute("SELECT * FROM wordCount")
-    return c.fetchall()
     
+
+def updateCountF(word):
+    wordCountF = sqlite3.connect(USER_FILE)
+    c = wordCountF.cursor()
+    c.execute("SELECT count FROM wordCountF WHERE word = ?", (word,))
+    data = c.fetchone()
+    countF = int(data[0])+1
+    c.execute("UPDATE wordCountF SET count = ? WHERE word = ?", (countF, word))
+    wordCountF.commit()
+
+def updateCountR(word):
+    wordCountR = sqlite3.connect(USER_FILE)
+    c = wordCountR.cursor()
+    c.execute("SELECT count FROM wordCountR WHERE word = ?", (word,))
+    data = c.fetchone()
+    countR = int(data[0])+1
+    c.execute("UPDATE wordCountR SET count = ? WHERE word = ?", (countR, word))
+    wordCountR.commit()
+    
+def returnWordCountF():
+    wordCountF = sqlite3.connect(USER_FILE)
+    c = wordCountF.cursor()
+    c.execute("SELECT * FROM wordCountF")
+    return c.fetchall()
+
+def returnWordCountR():
+    wordCountF = sqlite3.connect(USER_FILE)
+    c = wordCountF.cursor()
+    c.execute("SELECT * FROM wordCountF")
+    return c.fetchall()
     
 def updateArticleInfo(username, title, content):
     users = sqlite3.connect(USER_FILE)

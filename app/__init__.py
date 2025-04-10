@@ -9,6 +9,7 @@ import os
 import numpy as np 
 import pandas as pd
 import random
+import csv
 
 
 
@@ -41,10 +42,10 @@ news = pd.concat([fake, real], ignore_index = True)
 #news.drop(['subject', 'date'], axis=1)
 #print(news.head(10))
 
-fake_text = fake['text']
-fake_title = fake['title']
-real_text = real['text']
-real_title = real['title']
+# fake_text = fake['text']
+# fake_title = fake['title']
+# real_text = real['text']
+# real_title = real['title']
 fake_text_dict = {}
 fake_title_dict = {}
 
@@ -58,181 +59,191 @@ def main():
     deleteFontTableR()
     createFontSizeInfoF()
     createFontSizeInfoR()
+    createWordCountInfoF()
+    createWordCountInfoR()
     if 'username' in session:
         return redirect("/dashbord")
-    fake = one()
-    real = real_text_words()
-    return render_template("main.html", fake=fake, real=real)
+    if len(returnWordCountF()) > 0:
+        words = words_counts_quick()
+    else:
+        words = words_counts()
+#     fake = one()
+#     real = real_text_words()
+    return render_template("main.html", words=words)
 
 def words_counts():
     createWordCountInfoF()
     createWordCountInfoR()
     pli = []
-    for i in range(0, len(fake_text)):
-        title_words = fake_title[i].split(' ')
-        n=[]
-        rmov = "1234567890-`=@#!$%^&*(’),“—.:?/;[]_{}+”<>'\“\""
-        for k in title_words:
-            for j in k:
-                if j in rmov:
-                    k = k.replace(j," ")
-            pli = k.split(' ')
-            for b in pli:
-                n.append(b)
+    rmov = "1234567890-`=@#!$%^&*(’),“—.:?/;[]_{}+”<>'\“\""
+    
+    with open('data/Fake (1).csv', encoding='utf-8',newline ='\n') as f:
+        csvread = csv.reader(f)
         
-        text_words = fake_text[i].split(' ')
-        for k in text_words:
-            for j in k:
-                if j in rmov:
-                    k = k.replace(j," ")
-            pli = k.split(' ')
-            for b in pli:
-                n.append(b)
+        for i in list(csvread)[0:4]:
+            title_words = i[0].split(' ')
+            text_words = i[1].split(' ')
+            n=[]
+            for k in title_words:
+                for j in k:
+                    if j in rmov:
+                        k = k.replace(j," ")
+                pli = k.split(' ')
+                for b in pli:
+                    n.append(b)
             
-        for word in n:
-            if word in fake_title_dict.keys():
-                fake_title_dict[word] += 1
-            else:
-                fake_title_dict[word] = 1
-        for word in m:
-            if word in fake_text_dict.keys():
-                fake_text_dict[word] += 1
-            else:
-                fake_text_dict[word] = 1
+            for k in text_words:
+                for j in k:
+                    if j in rmov:
+                        k = k.replace(j," ")
+                pli = k.split(' ')
+                for b in pli:
+                    if b not in n:
+                        n.append(b)
+            for word in n:
+                if word in list(fake_text_dict.keys()):
+                    fake_text_dict[word] += 1
+                    updateCountF(word)
+                else:
+                    fake_text_dict[word] = 1
+                    addWordCountInfoF(word, 1)
                 
-    for i in range(0, len(real_text)):
-        title_words_r = real_title[i].split(' ')
-        r = []
-        for k in title_words_r:
-            for j in k:
-                if j in rmov:
-                    k = k.replace(j," ")
-            pli = k.split(" ")
-            for b in pli:
-                r.append(b)
-            
-        text_words_r = real_text[i].split(' ')
-        for k in text_words_r:
-            for j in k:
-                if j in rmov:
-                    k = k.replace(j," ")
-            pli = k.split(' ')
-            for b in pli:
-                r.append(b)
-            
-        for word in r:
-            if word in real_title_dict.keys():
+    with open('data/True (1).csv', encoding='utf-8', newline ='\n') as p:
+        csvread = csv.reader(p)
+        for i in list(csvread)[0:4]:
+            title_words_r = i[0].split(' ')
+            text_words_r = i[1].split(' ')
+            r = []
+            for k in title_words_r:
+                for j in k:
+                    if j in rmov:
+                        k = k.replace(j," ")
+                pli = k.split(" ")
+                for b in pli:
+                    r.append(b)
                 
-            else:
-                addWordCountInfoR(word, 1)
-        for word in t:
-            if word in real_text_dict.keys():
-                real_text_dict[word] += 1
-            else:
-                addWordCountInfoR(word, 1)
- 
-def prevalency(article_dict, article_count):
-    words_counts()
-    high = 0
-    low = list(article_dict.values())[0]
-    total = 0
-    copy = article_dict.copy()
-    #loop through dictionary, make new dictionary with article count/word count for that word
-    #at the same time find highest and lowest count of word to get range
-    # get highest count/article, and lowest count/article
-    # sum all word count per article
-    # word count for one/total sum of word count for each word --> get that percent --> x 100 to return font size     
-    for i in copy:
-      if i.lower() in filler or i.upper() in filler:
-          article_dict.pop(i)
-    
-    p = dict(list(article_dict.items()))
-    op=""
-    for i in p:
-      p[i] = (p[i]/article_count)
-      total += p[i]
-      if p[i] > high:
-          high = p[i]
-      if p[i] < low:
-          low = p[i]
-         
-    font_size = p.copy()
-    diff = high - low
-    rate = diff / 10
-    
-    
-    
-    for j in font_size:
-      font_size[j] = (p[j]/high) * 100
-      
-    for j in font_size:
-      if font_size[j] >= low and font_size[j] <= .0001:
-          font_size[j] = 15
-      if font_size[j] <= low:
-          font_size[j] = 15
-      elif font_size[j] > .0001 and font_size[j] <= .0002:
-          font_size[j] = 20
-      elif font_size[j] > .0002 and font_size[j] <= .0005:
-          font_size[j] = 25
-      elif font_size[j] > .0005 and font_size[j] <= .01:
-          font_size[j] = 30
-      elif font_size[j] > .01 and font_size[j] <= .03:
-          font_size[j] = 40
-      elif font_size[j] > .04 and font_size[j] <= .05:
-          font_size[j] = 70
-      elif font_size[j] > .05 and font_size[j] <= .2:
-          font_size[j] = 70
-      elif font_size[j] > .2 and font_size[j] <= .5:
-          font_size[j] = 75
-      elif font_size[j] > .5 and font_size[j] <= 1:
-          font_size[j] = 75
-      elif font_size[j] > low+(4*rate) and font_size[j] <= low + (5*rate):
-          font_size[j] = 80
-      elif font_size[j] > low+(5*rate) and font_size[j] <= low + (6*rate):
-          font_size[j] = 80
-      elif font_size[j] > low+(6*rate) and font_size[j] <= low + (7*rate):
-          font_size[j] = 90
-      elif font_size[j] > low+(7*rate) and font_size[j] <= low + (8*rate):
-          font_size[j] = 90
-      elif font_size[j] > low+(8*rate) and font_size[j] <= low + (9*rate):
-          font_size[j] = 95
-      elif font_size[j] > low+(9*rate) and font_size[j] <= low + (10*rate):
-          font_size[j] = 100
-      elif font_size[j] > low+(10*rate) and font_size[j] <= low + (11*rate):
-          font_size[j] = 120
-      else:
-          font_size[j] = 20
-    return font_size
-          
-def one():
-    fake_article_count = len(fake)
-    fake_article = prevalency(fake_text_dict, fake_article_count)
-    deleteFontTableF()
-    for i in dict(random.sample(list(fake_article.items()),25)):
-        addFontSizeInfoF(i, fake_article[i])
-    return returnFontTableF()
-
-
-def fake_titles_words():
-    deleteFontTableF()
-    fake_title_count = len(fake)
-    fake_title = prevalency(fake_title_dict, fake_title_count)
-    return dict(random.sample(list(fake_title.items()),10))
-
-def real_text_words():
-    deleteFontTableR()
-    real_article_count = len(real)
-    real_article = prevalency(real_text_dict, real_article_count)
-    for i in dict(random.sample(list(real_article.items()),25)):
-        addFontSizeInfoR(i, real_article[i])
-    return returnFontTableR()
-
-    
-def real_titles_words():
-    real_title_count = len(real)
-    real_title = prevalency(real_title_dict, real_title_count)
-    return dict(random.sample(list(real_title.items()),10))
-
+            for k in text_words_r:
+                for j in k:
+                    if j in rmov:
+                        k = k.replace(j," ")
+                pli = k.split(' ')
+                for b in pli:
+                    if b not in r:
+                        r.append(b)
+               
+            for word in r:
+                if word in list(real_text_dict.keys()):
+                    real_text_dict[word] += 1
+                    updateCountR(word)
+                else:
+                    addWordCountInfoR(word, 1)
+                    real_text_dict[word] = 1
+    return returnWordCountF()[0:30]
+#
+def words_counts_quick():
+    return returnWordCountF()[0:30]
+# def prevalency(article_dict, article_count):
+#     words_counts()
+#     high = 0
+#     low = list(article_dict.values())[0]
+#     total = 0
+#     copy = article_dict.copy()
+#     #loop through dictionary, make new dictionary with article count/word count for that word
+#     #at the same time find highest and lowest count of word to get range
+#     # get highest count/article, and lowest count/article
+#     # sum all word count per article
+#     # word count for one/total sum of word count for each word --> get that percent --> x 100 to return font size     
+#     for i in copy:
+#       if i.lower() in filler or i.upper() in filler:
+#           article_dict.pop(i)
+#     
+#     p = dict(list(article_dict.items()))
+#     op=""
+#     for i in p:
+#       p[i] = (p[i]/article_count)
+#       total += p[i]
+#       if p[i] > high:
+#           high = p[i]
+#       if p[i] < low:
+#           low = p[i]
+#          
+#     font_size = p.copy()
+#     diff = high - low
+#     rate = diff / 10
+#     
+#     
+#     
+#     for j in font_size:
+#       font_size[j] = (p[j]/high) * 100
+#       
+#     for j in font_size:
+#       if font_size[j] >= low and font_size[j] <= .0001:
+#           font_size[j] = 15
+#       if font_size[j] <= low:
+#           font_size[j] = 15
+#       elif font_size[j] > .0001 and font_size[j] <= .0002:
+#           font_size[j] = 20
+#       elif font_size[j] > .0002 and font_size[j] <= .0005:
+#           font_size[j] = 25
+#       elif font_size[j] > .0005 and font_size[j] <= .01:
+#           font_size[j] = 30
+#       elif font_size[j] > .01 and font_size[j] <= .03:
+#           font_size[j] = 40
+#       elif font_size[j] > .04 and font_size[j] <= .05:
+#           font_size[j] = 70
+#       elif font_size[j] > .05 and font_size[j] <= .2:
+#           font_size[j] = 70
+#       elif font_size[j] > .2 and font_size[j] <= .5:
+#           font_size[j] = 75
+#       elif font_size[j] > .5 and font_size[j] <= 1:
+#           font_size[j] = 75
+#       elif font_size[j] > low+(4*rate) and font_size[j] <= low + (5*rate):
+#           font_size[j] = 80
+#       elif font_size[j] > low+(5*rate) and font_size[j] <= low + (6*rate):
+#           font_size[j] = 80
+#       elif font_size[j] > low+(6*rate) and font_size[j] <= low + (7*rate):
+#           font_size[j] = 90
+#       elif font_size[j] > low+(7*rate) and font_size[j] <= low + (8*rate):
+#           font_size[j] = 90
+#       elif font_size[j] > low+(8*rate) and font_size[j] <= low + (9*rate):
+#           font_size[j] = 95
+#       elif font_size[j] > low+(9*rate) and font_size[j] <= low + (10*rate):
+#           font_size[j] = 100
+#       elif font_size[j] > low+(10*rate) and font_size[j] <= low + (11*rate):
+#           font_size[j] = 120
+#       else:
+#           font_size[j] = 20
+#     return font_size
+#           
+# def one():
+#     fake_article_count = len(fake)
+#     fake_article = prevalency(fake_text_dict, fake_article_count)
+#     deleteFontTableF()
+#     for i in dict(random.sample(list(fake_article.items()),25)):
+#         addFontSizeInfoF(i, fake_article[i])
+#     return returnFontTableF()
+# 
+# 
+# def fake_titles_words():
+#     deleteFontTableF()
+#     fake_title_count = len(fake)
+#     fake_title = prevalency(fake_title_dict, fake_title_count)
+#     return dict(random.sample(list(fake_title.items()),10))
+# 
+# def real_text_words():
+#     deleteFontTableR()
+#     real_article_count = len(real)
+#     real_article = prevalency(real_text_dict, real_article_count)
+#     for i in dict(random.sample(list(real_article.items()),25)):
+#         addFontSizeInfoR(i, real_article[i])
+#     return returnFontTableR()
+# 
+#     
+# def real_titles_words():
+#     real_title_count = len(real)
+#     real_title = prevalency(real_title_dict, real_title_count)
+#     return dict(random.sample(list(real_title.items()),10))
+# 
 
 
 
