@@ -15,17 +15,39 @@ def build():
     c.execute("CREATE TABLE IF NOT EXISTS true_words(word TEXT, count INTEGER)")
     c.execute("CREATE TABLE IF NOT EXISTS users(username TEXT, password TEXT)")
     close(db)
-    print("Database successfully created.")
+
+def addWordF(word):
+    c,db = connect()
+    c.execute("INSERT INTO fake_words(word, count) VALUES (?, ?)", (word, 1))
+    close(db)
 
 def updateCountF(word):
-    c, db = connect()
-    c.execute("SELECT count FROM wordCountF WHERE word = ?", (word,))
-    
-    
-    wordCountF = sqlite3.connect(USER_FILE)
-    c = wordCountF.cursor()
-    c.execute("SELECT count FROM wordCountF WHERE word = ?", (word,))
-    data = c.fetchone()
+    c,db = connect()
+    data = c.execute("SELECT count FROM fake_words WHERE word = ?", (word,)).fetchone()
     countF = int(data[0])+1
-    c.execute("UPDATE wordCountF SET count = ? WHERE word = ?", (countF, word))
-    wordCountF.commit()
+    c.execute("UPDATE fake_words SET count = ? WHERE word = ?", (countF, word))
+    close(db)
+    
+def addWordT(word):
+    c,db = connect()
+    c.execute("INSERT INTO true_words(word, count) VALUES (?, ?)", (word, 1))
+    close(db)
+
+def updateCountT(word):
+    c,db = connect()
+    data = c.execute("SELECT count FROM true_words WHERE word = ?", (word,)).fetchone()
+    countT = int(data[0])+1
+    c.execute("UPDATE true_words SET count = ? WHERE word = ?", (countT, word))
+    close(db)
+
+def wordInfoF(word):
+    c,db = connect()
+    ret = ("SELECT * FROM fake_words WHERE word = ?", (word,)).fetchall()
+    close(db)
+    return ret
+
+def wordInfoT(word):
+    c,db = connect()
+    ret = ("SELECT * FROM true_words WHERE word = ?", (word,)).fetchall()
+    close(db)
+    return ret

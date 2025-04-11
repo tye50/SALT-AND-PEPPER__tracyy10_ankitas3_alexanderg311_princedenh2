@@ -4,6 +4,8 @@ import random
 import csv
 import sqlite3
 
+from db import *
+
 app = Flask(__name__)
 secret = os.urandom(32)
 app.secret_key = secret
