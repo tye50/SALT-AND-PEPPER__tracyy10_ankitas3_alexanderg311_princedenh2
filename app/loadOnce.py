@@ -11,6 +11,7 @@ with open('data/Fake (1).csv', 'r', encoding="utf8") as file:
          row = row[1].strip().lower().replace(",", " ").replace(".", " ").replace("!", " ").replace("?", " ").replace(";", " ").replace("'", " ").replace('"', " ").replace('(', " ").replace(')', " ").replace('[', " ").replace(']', " ").replace('{', " ").replace('}', " ").replace(',', " ").replace('.', " ").replace('-', " ").replace('_', " ")
          words = row.split()
          for i in words:
+             print(wordInfoF(i))
              if len(wordInfoF(i)) == 0:
                  addWordF(i)
                  print("added word: " + i)
