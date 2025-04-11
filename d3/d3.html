@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+
+<script src="https://d3js.org/d3.v4.js"></script>
+
+<script src="https://cdn.jsdelivr.net/gh/holtzy/D3-graph-gallery@master/LIB/d3.layout.cloud.js"></script>
+
+<div id="words"></div>
+
+<script>
+var sqlite3 = require("sqlite3").verbose();
+var filepath = "./NAME OF DB FILE (SALT.DB)";
+
+function createDbConnection() {
+  var db = new sqlite3.Database(filepath, (error) => {
+    if (error) {
+      return console.error(error.message);
+    }
+  });
+  console.log("Connection with SQLite has been established");
+  return db;
+}
+
+function selectFontTable() {
+  db.each(`SELECT * FROM NAME`, (error, row) => {
+	if (error) {
+  	throw new Error(error.message);
+	}
+	console.log(row);
+  });
+}
+
+selectRows();
+
+
+
+var fWords = [{word: "Running", size: "10"}, {word: "Surfing", size: "20"}, {word: "Climbing", size: "50"},{word: "Surfing", size: "20"}, {word: "Climbing", size: "50"},{word: "Surfing", size: "20"}, {word: "Climbing", size: "50"},{word: "Surfing", size: "20"}, {word: "Climbing", size: "50"},{word: "Surfing", size: "20"}, {word: "Climbing", size: "50"},{word: "Surfing", size: "20"}, {word: "Climbing", size: "50"},{word: "Surfing", size: "20"}, {word: "Climbing", size: "50"},{word: "Surfing", size: "20"}, {word: "Climbing", size: "50"},{word: "Surfing", size: "20"}, {word: "Climbing", size: "50"},{word: "Surfing", size: "20"}, {word: "Climbing", size: "50"},{word: "Surfing", size: "20"}, {word: "Climbing", size: "50"},{word: "Surfing", size: "20"}, {word: "Climbing", size: "50"},{word: "Surfing", size: "20"}, {word: "Climbing", size: "50"},{word: "Surfing", size: "20"}, {word: "Climbing", size: "50"},{word: "Surfing", size: "20"}, {word: "Climbing", size: "50"},{word: "Surfing", size: "20"}, {word: "Climbing", size: "50"},{word: "Surfing", size: "20"}, {word: "Climbing", size: "50"},{word: "Surfing", size: "20"}, {word: "Climbing", size: "50"},{word: "Surfing", size: "20"}, {word: "Climbing", size: "50"},{word: "Surfing", size: "20"}, {word: "Climbing", size: "50"}, {word: "Kiting", size: "30"}, {word: "Sailing", size: "20"}, {word: "Snowboarding", size: "60"} ]
+
+var margin = {top: 10, right: 10, bottom: 10, left: 10},
+    width = 450 - margin.left - margin.right,
+    height = 450 - margin.top - margin.bottom;
+
+var svg = d3.select("#words").append("svg")
+    .attr("width", width + margin.left + margin.right)
+    .attr("height", height + margin.top + margin.bottom)
+  .append("g")
+    .attr("transform",
+          "translate(" + margin.left + "," + margin.top + ")");
+
+//add additional value for oclor
+var layout = d3.layout.cloud()
+  .size([width, height])
+  .words(fWords.map(function(d) { return {text: d.word, size:d.size}; }))
+  .padding(5)        //space between words
+  .rotate(function() { return ~~(Math.random() * 2) * 90; })
+  .fontSize(function(d) { return d.size; })      // font size of words
+  .color("red"")
+  .on("end", draw);
+layout.start();
+
+function draw(words) {
+  svg
+    .append("g")
+      .attr("transform", "translate(" + layout.size()[0] / 2 + "," + layout.size()[1] / 2 + ")")
+      .selectAll("text")
+        .data(words)
+      .enter().append("text")
+        .style("font-size", function(d) { return d.size; })
+        .style("fill", "red")
+        .attr("text-anchor", "middle")
+        .style("font-family", "Impact")
+        .attr("transform", function(d) {
+          return "translate(" + [d.x, d.y] + ")rotate(" + d.rotate + ")";
+        })
+        .text(function(d) { return d.text; });
+}
+
+
+</script>
