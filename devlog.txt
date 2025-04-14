@@ -47,6 +47,9 @@ princedenH - 2025-04-08 11:01
 tracyY - 2025-04-10 06:13
 - sentiment API is in place (still on my branch)
 
+princedenH - 2025-04-14 12:00
+- integrated sci kit model with flask
+
 DESIGN REVISIONS THUS FAR:
 ------------------------------------
 ====================================
