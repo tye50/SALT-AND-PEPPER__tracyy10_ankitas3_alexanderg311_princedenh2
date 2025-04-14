@@ -10,19 +10,24 @@ import numpy as np
 import pandas as pd
 import random
 import csv
-
-
-
+import requests
+from newspaper import Article
+from sklearn.model_selection import train_test_split
+from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.metrics import accuracy_score
+import news_classifier
+from sklearn.naive_bayes import MultinomialNB
 import sqlite3
 import db
 from db import *
-
+import news_scrape
+import pickle
 import news_analysis
 
 app = Flask(__name__)
 secret = os.urandom(32)
 app.secret_key = secret
-
+model = None # MultinomialNB()
 
 
 # fake = pd.read_csv(os.path.abspath('data/Fake (1).csv'))
@@ -270,12 +275,23 @@ def search():
         return redirect("/main")
     return render_template("search.html")
 
-@app.route("/analyze")
+@app.route("/analyze", methods=['GET', 'POST'])
 def analyze():
-    if not 'username' in session:
-        # add flash
-        return redirect("/main")
-    return render_template("analyze.html")
+    # if not 'username' in session:
+    #     # add flash
+    #     return redirect("/main")
+    if request.method == 'POST':
+        link = request.form['link']
+        try:
+            text = news_scrape.get_text(link)
+            p = news_classifier.get_probability(model, text)
+            print("wdjwqodpqwpodqwjdpowjpojdpoqwjdpoqwjdopwjdpoqwj")
+            print(p[0], p[1])
+            return render_template("analyze.html", link=link, p_true=p[0],p_false=p[1])
+        except:
+            flash('Invalid URL or unable to fetch the article. Please try again.')
+            return render_template("analyze.html")
+    return render_template("analyze.html", p_true=None, p_false=None)
 
 @app.route("/generate")
 def generate():
@@ -286,5 +302,6 @@ def generate():
 
 if __name__ == "__main__":
     app.debug = True
-
+    model = pickle.load(open("finalized_model.sav", "rb"))
+    print("Model loaded")
     app.run()
