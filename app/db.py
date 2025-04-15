@@ -24,8 +24,7 @@ def addWordF(word):
 def updateCountF(word):
     c,db = connect()
     data = c.execute("SELECT count FROM fake_words WHERE word = ?", (word,)).fetchone()
-    print(data)
-    countF = int(data)+1
+    countF = int(data[0])+1
     c.execute("UPDATE fake_words SET count = ? WHERE word = ?", (countF, word))
     close(db)
     
@@ -37,7 +36,7 @@ def addWordT(word):
 def updateCountT(word):
     c,db = connect()
     data = c.execute("SELECT count FROM true_words WHERE word = ?", (word,)).fetchone()
-    countT = int(data)+1
+    countT = int(data[0])+1
     c.execute("UPDATE true_words SET count = ? WHERE word = ?", (countT, word))
     close(db)
 
@@ -52,3 +51,15 @@ def wordCountT(word):
     ret = c.execute("SELECT count FROM true_words WHERE word = ?", (word,)).fetchone()
     close(db)
     return ret
+
+def getRandomFakeWord():
+    c,db = connect()
+    ret = c.execute("SELECT * FROM fake_words ORDER BY NEWID()").fetchone()
+    close(db)
+    return [ret[0], ret[1], ret[2]]
+
+def getRandomTrueWord():
+    c,db = connect()
+    ret = c.execute("SELECT * FROM true_wprds ORDER BY NEWID()").fetchone()
+    close(db)
+    return [ret[0], ret[1], ret[2]]

@@ -31,3 +31,5 @@ with open('data/True (1).csv', 'r', encoding="utf8") as file:
              else:
                  updateCountT(i)
                  print("updated: " + i + " in TRUE")
+
+##################################  DO NOT RUN THIS FILE  #########################################

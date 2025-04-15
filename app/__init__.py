@@ -14,6 +14,12 @@ app.secret_key = secret
 def main():
     if 'username' in session:
         return redirect("/dashbord")
+    words=[]
+    for i in range(10):
+        if random.choice([True, False]) == True:
+            words.append(getRandomFakeWord())
+        else:
+            getRandomTrueWord()
     return render_template("main.html", words=words)
 
 @app.route("/login")
