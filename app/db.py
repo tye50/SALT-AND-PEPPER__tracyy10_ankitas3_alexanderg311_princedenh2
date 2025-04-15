@@ -23,7 +23,6 @@ def createArticleInfo():
     articles = sqlite3.connect(USER_FILE)
     c = articles.cursor()
     c.execute("CREATE TABLE IF NOT EXISTS articles(title TEXT, content TEXT)")
-    c.execute(command)
     articles.commit()
     
 def createWordCountInfoF():
@@ -73,12 +72,14 @@ def returnWordCountF():
     wordCountF = sqlite3.connect(USER_FILE)
     c = wordCountF.cursor()
     c.execute("SELECT * FROM wordCountF")
+    wordCountF.commit()
     return c.fetchall()
 
 def returnWordCountR():
-    wordCountF = sqlite3.connect(USER_FILE)
-    c = wordCountF.cursor()
-    c.execute("SELECT * FROM wordCountF")
+    wordCountR = sqlite3.connect(USER_FILE)
+    c = wordCountR.cursor()
+    c.execute("SELECT * FROM wordCountR")
+    wordCountR.commit()
     return c.fetchall()
     
 def updateArticleInfo(username, title, content):
