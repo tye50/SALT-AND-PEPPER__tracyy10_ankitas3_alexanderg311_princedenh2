@@ -11,14 +11,14 @@ def close(db):
 
 def build():
     c,db = connect()
-    c.execute("CREATE TABLE IF NOT EXISTS fake_words(word TEXT, count INTEGER)")
-    c.execute("CREATE TABLE IF NOT EXISTS true_words(word TEXT, count INTEGER)")
+    c.execute("CREATE TABLE IF NOT EXISTS fake_words(word TEXT, count INTEGER, color TEXT)")
+    c.execute("CREATE TABLE IF NOT EXISTS true_words(word TEXT, count INTEGER, color TEXT)")
     c.execute("CREATE TABLE IF NOT EXISTS users(username TEXT, password TEXT)")
     close(db)
 
 def addWordF(word):
     c,db = connect()
-    c.execute("INSERT INTO fake_words(word, count) VALUES (?, ?)", (word, 1))
+    c.execute("INSERT INTO fake_words(word, count, color) VALUES (?, ?, ?)", (word, 1, 'red'))
     close(db)
 
 def updateCountF(word):
@@ -31,7 +31,7 @@ def updateCountF(word):
     
 def addWordT(word):
     c,db = connect()
-    c.execute("INSERT INTO true_words(word, count) VALUES (?, ?)", (word, 1))
+    c.execute("INSERT INTO true_words(word, count, color) VALUES (?, ?, ?)", (word, 1, 'blue'))
     close(db)
 
 def updateCountT(word):
@@ -41,14 +41,14 @@ def updateCountT(word):
     c.execute("UPDATE true_words SET count = ? WHERE word = ?", (countT, word))
     close(db)
 
-def wordInfoF(word):
+def wordCountF(word):
     c,db = connect()
-    ret = ("SELECT * FROM fake_words WHERE word = ?", (word,))[1]
+    ret = c.execute("SELECT count FROM fake_words WHERE word = ?", (word,)).fetchone()
     close(db)
     return ret
 
-def wordInfoT(word):
+def wordCountT(word):
     c,db = connect()
-    ret = ("SELECT * FROM true_words WHERE word = ?", (word,))[1]
+    ret = c.execute("SELECT count FROM true_words WHERE word = ?", (word,)).fetchone()
     close(db)
     return ret

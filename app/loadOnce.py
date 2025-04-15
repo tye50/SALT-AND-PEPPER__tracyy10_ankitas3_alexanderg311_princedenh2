@@ -11,12 +11,12 @@ with open('data/Fake (1).csv', 'r', encoding="utf8") as file:
          row = row[1].strip().lower().replace(",", " ").replace(".", " ").replace("!", " ").replace("?", " ").replace(";", " ").replace("'", " ").replace('"', " ").replace('(', " ").replace(')', " ").replace('[', " ").replace(']', " ").replace('{', " ").replace('}', " ").replace(',', " ").replace('.', " ").replace('-', " ").replace('_', " ")
          words = row.split()
          for i in words:
-             print(wordInfoF(i))
-             if len(wordInfoF(i)) == 0:
+             if wordCountF(i) == None:
                  addWordF(i)
-                 print("added word: " + i)
+                 print("added word: " + i + " to FALSE")
              else:
                  updateCountF(i)
+                 print("updated: " + i + " in FALSE")
 
 # populate true
 with open('data/True (1).csv', 'r', encoding="utf8") as file:
@@ -25,8 +25,9 @@ with open('data/True (1).csv', 'r', encoding="utf8") as file:
          row = row[1].strip().lower().replace(",", " ").replace(".", " ").replace("!", " ").replace("?", " ").replace(";", " ").replace("'", " ").replace('"', " ").replace('(', " ").replace(')', " ").replace('[', " ").replace(']', " ").replace('{', " ").replace('}', " ").replace(',', " ").replace('.', " ").replace('-', " ").replace('_', " ")
          words = row.split()
          for i in words:
-             if len(wordInfoT(i)) == 0:
+             if wordCountT(i) == None:
                  addWordT(i)
-                 print("added word: " + i)
+                 print("added word: " + i + " to TRUE")
              else:
                  updateCountT(i)
+                 print("updated: " + i + " in TRUE")
