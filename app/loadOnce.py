@@ -5,22 +5,22 @@ from db import *
 build()
 
 # populate fake
-with open('data/Fake (1).csv', 'r', encoding="utf8") as file:
-     text=csv.reader(file)
-     for row in text:
-         row = row[1].strip().lower().replace("/", " ").replace(":", " ").replace(",", " ").replace(".", " ").replace("!", " ").replace("?", " ").replace(";", " ").replace("'", "").replace('"', " ").replace('(', " ").replace(')', " ").replace('[', " ").replace(']', " ").replace('{', " ").replace('}', " ").replace(',', " ").replace('.', " ").replace('-', "").replace('_', " ")
-         words = row.split()
-         for i in words:
-             if wordCountF(i) == None:
-                 addWordF(i)
-                 #print("added word: " + i + " to FALSE")
-             else:
-                 updateCountF(i)
-                 #print("updated: " + i + " in FALSE")
-print("Finished populating fake_words")
+# with open('data/sectionF.csv', 'r', encoding="utf8") as file:
+#      text=csv.reader(file)
+#      for row in text:
+#          row = row[1].strip().lower().replace("/", " ").replace(":", " ").replace(",", " ").replace(".", " ").replace("!", " ").replace("?", " ").replace(";", " ").replace("'", "").replace('"', " ").replace('(', " ").replace(')', " ").replace('[', " ").replace(']', " ").replace('{', " ").replace('}', " ").replace(',', " ").replace('.', " ").replace('-', "").replace('_', " ")
+#          words = row.split()
+#          for i in words:
+#              if wordCountF(i) == None:
+#                  addWordF(i)
+#                  #print("added word: " + i + " to FALSE")
+#              else:
+#                  updateCountF(i)
+#                  #print("updated: " + i + " in FALSE")
+# print("Finished loading this section of Fake data set.")
 
 # populate true
-with open('data/True (1).csv', 'r', encoding="utf8") as file:
+with open('data/sectionT.csv', 'r', encoding="utf8") as file:
      text=csv.reader(file)
      for row in text:
          row = row[1].strip().lower().replace("/", " ").replace(":", " ").replace(",", " ").replace(".", " ").replace("!", " ").replace("?", " ").replace(";", " ").replace("'", "").replace('"', " ").replace('(', " ").replace(')', " ").replace('[', " ").replace(']', " ").replace('{', " ").replace('}', " ").replace(',', " ").replace('.', " ").replace('-', "").replace('_', " ")
@@ -32,5 +32,5 @@ with open('data/True (1).csv', 'r', encoding="utf8") as file:
              else:
                  updateCountT(i)
                  #print("updated: " + i + " in TRUE")
-
+print("Finished loading this section of True data set.")
 ##################################  DO NOT RUN THIS FILE  #########################################
