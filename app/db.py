@@ -138,3 +138,80 @@ def deleteFontTableR():
     c = fontsR.cursor()
     c.execute("DELETE FROM fontsR")
     fontsR.commit()
+
+###SAMPLE DB FUNCTION S TO TEST SEARCH FUNCTIONS --> FUNCTIONS SHOULD BE MODELED THIS WAY
+
+def sampleWordCountF():
+    wcF = sqlite3.connect(USER_FILE)
+    c = wcF.cursor()
+    command = "CREATE TABLE IF NOT EXISTS wcF(word TEXT, count INT)"
+    c.execute(command)
+    wcF.commit()
+
+def addWCF(word, count):
+    wcF = sqlite3.connect(USER_FILE)
+    c = wcF.cursor()
+    c.execute("INSERT INTO wcF(word, count) VALUES (?, ?)", (word, count))
+    wcF.commit()
+
+def returnWordF(word):
+    wcF = sqlite3.connect(USER_FILE)
+    c = wcF.cursor()
+    c.execute("SELECT count FROM wcF WHERE word=?", (word,))
+    wcF.commit()
+    if word not in returnWordsF():
+        return 0
+    else:
+        return list(c.fetchone())[0]
+
+def returnWordsF():
+    wcF = sqlite3.connect(USER_FILE)
+    c = wcF.cursor()
+    c.execute("SELECT word FROM wcF")
+    wcF.commit()
+    fin = []
+    for i in c.fetchall():
+        for j in i:
+            fin.append(j)
+    return fin
+
+def sampleWordCountR():
+    wcR = sqlite3.connect(USER_FILE)
+    c = wcR.cursor()
+    command = "CREATE TABLE IF NOT EXISTS wcR(word TEXT, count INT)"
+    c.execute(command)
+    wcR.commit()
+
+def addWCR(word, count):
+    wcR = sqlite3.connect(USER_FILE)
+    c = wcR.cursor()
+    c.execute("INSERT INTO wcR(word, count) VALUES (?, ?)", (word, count))
+    wcR.commit()
+
+def returnWordR(word):
+    wcR = sqlite3.connect(USER_FILE)
+    c = wcR.cursor()
+    c.execute("SELECT count FROM wcR WHERE word=?", (word,))
+    wcR.commit()
+    if word not in returnWordsR():
+        return 0
+    else:
+        return list(c.fetchone())[0]
+
+def returnWordsR():
+    wcR = sqlite3.connect(USER_FILE)
+    c = wcR.cursor()
+    c.execute("SELECT word FROM wcR")
+    wcR.commit()
+    fin = []
+    for i in c.fetchall():
+        for j in i:
+            fin.append(j)
+    return fin
+
+sampleWordCountR()
+sampleWordCountF()
+addWCF("Hi", 5)
+addWCF("Hell", 50)
+addWCR("ho", 9)
+addWCR("Hi", 9)

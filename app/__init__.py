@@ -268,12 +268,19 @@ def dashboard():
         return redirect("/main")
     return render_template("dashboard.html")
 
-@app.route("/search")
+@app.route("/search", methods=['GET','POST'])
 def search():
-    if not 'username' in session:
-        # add flash
-        return redirect("/main")
-    return render_template("search.html")
+    # if not 'username' in session:
+    #     # add flash
+    #     return redirect("/main")
+    
+    query = request.form.get("query")
+    count = returnWordF(query)
+    words = returnWordsF()
+
+    countR = returnWordR(query)
+    wordsR = returnWordsR()
+    return render_template("search.html", query=query, count=count, words=words, countR=countR, wordsR=wordsR)
 
 @app.route("/analyze", methods=['GET', 'POST'])
 def analyze():
@@ -302,6 +309,6 @@ def generate():
 
 if __name__ == "__main__":
     app.debug = True
-    model = pickle.load(open("finalized_model.sav", "rb"))
+    #model = pickle.load(open("finalized_model.sav", "rb"))
     print("Model loaded")
     app.run()
