@@ -47,12 +47,19 @@ def dashboard():
         return redirect("/")
     return render_template("dashboard.html")
 
-@app.route("/search")
+
+@app.route("/search", methods=['GET','POST'])
 def search():
-    if not 'username' in session:
+     if not 'username' in session:
         # add flash
         return redirect("/")
-    return render_template("search.html")
+    query = request.form.get("query")
+    count = returnWordF(query)
+    words = returnWordsF()
+
+    countR = returnWordR(query)
+    wordsR = returnWordsR()
+    return render_template("search.html", query=query, count=count, words=words, countR=countR, wordsR=wordsR)
 
 @app.route("/analyze")
 def analyze():
