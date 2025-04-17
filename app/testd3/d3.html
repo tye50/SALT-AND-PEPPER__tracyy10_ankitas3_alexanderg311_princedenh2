@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<script src="https://cdn.jsdelivr.net/gh/holtzy/D3-graph-gallery@master/LIB/d3.layout.cloud.js"></script>
+<script src="https://d3js.org/d3.v4.min.js"></script>
+
+<div id="wordCount"></div>
+<h1>hello there</h1>
+<script>
+  console.log("hi") 
+  d3.json("https://ankita320.github.io/test-json/pleasework.json", (function(d) {
+    const com = d
+    console.log(com) 
+    
+    const margin = {top: 20, right: 20, bottom: 20, left: 20},
+        width = 600 - margin.left - margin.right,
+        height = 300 - margin.top - margin.bottom;
+    
+
+    const svg = d3.select("#wordCount").append("svg")
+        .attr("width", width + margin.left + margin.right)
+        .attr("height", height + margin.top + margin.bottom)
+      .append("g")
+        .attr("transform",
+              "translate(" + margin.left + "," + margin.top + ")");
+    
+  
+    const layout = d3.layout.cloud()
+      .size([width, height])
+      .words(com.map(function(d) { return {text: d.name, size:d.count, color:d.color}; }))
+      .padding(5)        //space between words
+      .rotate(function() { return ~~(Math.random() * 2) * 90; })
+      .fontSize(function(d) { return d.size; })      // font size of words
+      .on("end", draw);
+    layout.start();
+    
+    function draw(words) {
+      svg
+        .append("g")
+          .attr("transform", "translate(" + layout.size()[0] / 2 + "," + layout.size()[1] / 2 + ")")
+          .selectAll("text")
+            .data(words)
+          .enter().append("text")
+            .style("font-size", function(d) { return d.size; })
+            .style("fill", function(d) { return d.color; })
+            .attr("text-anchor", "middle")
+            .style("font-family", "Impact")
+            .attr("transform", function(d) {
+              return "translate(" + [d.x, d.y] + ")rotate(" + d.rotate + ")";
+            })
+            .text(function(d) { return d.text; });
+          }
+    }));
+
+
+    
+
+    </script>

@@ -5,8 +5,28 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    </head>
     <body>
         Analyze
-    <body>
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+                {% for  message in messages %}
+                        {{ message }}
+
+                {% endfor %}
+        {% endif %}
+    {% endwith %}
+        <form action="/analyze" method="post">
+            <label for="link" class="block">Link:</label>
+            <input type="text" name="link" id="link">
+            <button type="submit" >Submit</button>
+        </form>
+        {%if p_true != None %}
+        Link Submitted: {{link}} <br>
+        False: {{p_true}} <br>
+        True: {{p_false}} <br>
+        {%endif%}
+    </body>
+    
     
 </HTML>
