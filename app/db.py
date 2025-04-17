@@ -63,3 +63,35 @@ def getRandomTrueWord():
     ret = c.execute("SELECT * FROM true_words ORDER BY RANDOM()").fetchone()
     close(db)
     return [ret[0], ret[1], ret[2]]
+
+def attemptAddUser(username, password):
+    c, db = connect()
+    matching = c.execute("SELECT * FROM users WHERE username = ?", (username,)).fetchall()
+    if len(matching) == 0:
+        c.execute("INSERT INTO users(username, password) VALUES (?, ?)", (username, password))
+        close(db)
+        return 0 # if 0 --> added
+    close(db)
+    return 1 # if 1 --> user exists
+
+def getUser(user):
+    c, db = connect()
+    ret = c.execute("SELECT * FROM users WHERE username = ?", (username,)).fetchone()
+    close(db)
+    return [ret[0], ret[1]]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

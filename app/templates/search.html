@@ -4,8 +4,32 @@
         <title> Fakeout [SEARCH] </title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-    <body>
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-SgOJa3DmI69IUzQ2PVdRZhwQ+dy64/BUtbMJw1MZ8t5HZApcHrRKUc4W0kG879m7" crossorigin="anonymous">
+    </head>
+    
+    <body class="text-primary-emphasis bg-secondary-subtle">
+        <nav class="pe-3 navbar navbar-dark bg-dark rounded-bottom text-white">
+            <a class="navbar-brand fs-2 href="#">
+                <img src="static/images/salt_shaker.png" width="50" height="50" style="transform: rotate(20deg);" class="d-inline-block align-top" alt="">
+                SALT&PEPPER
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                <div class="ps-3 navbar-nav">
+                    <a class="nav-item nav-link" href="/">Home</a>
+                    <a class="nav-item nav-link" href="/dashboard">Dashboard</a>
+                    <a class="nav-item nav-link" href="/analyze">Analyze</a>
+                    <a class="nav-item nav-link active" href="/search">Search</a>
+                    <a class="nav-item nav-link" href="/generate">Generate</a>
+                </div>
+            </div>
+        </nav>
+    
        <form method="POST">
         <h1>Search for a Word</h1>
         <input type="text" name="query" placeholder="Input a word to find its prevalency">
@@ -25,7 +49,7 @@
         {% endif %}
         {% endif %}
 
-        <body>
+    </body>
         
     
 </HTML>

@@ -22,42 +22,57 @@ def main():
             words.append(getRandomTrueWord())
     return render_template("main.html", words=words)
 
-@app.route("/login")
+@app.route("/login", methods=['GET','POST'])
 def login():
     return render_template("login.html")
 
-@app.route("/register")
+@app.route("/register", methods=['GET','POST'])
 def register():
-    return render_template("register.html")
+    if request.method=="GET":
+        return render_template("register.html")
+    else:
+        username=request.form.get("user")
+        password=request.form.get("pass")
+        if (attemptAddUser(username, password) == 0):
+            session['username'] = username
+            return render_template("dashboard.html")
+        else:
+            # add flash
+            return render_template("register.html")
 
 @app.route("/dashboard")
 def dashboard():
     if not 'username' in session:
         # add flash
-        return redirect("/main")
+        return redirect("/")
     return render_template("dashboard.html")
 
 @app.route("/search")
 def search():
     if not 'username' in session:
         # add flash
-        return redirect("/main")
+        return redirect("/")
     return render_template("search.html")
 
 @app.route("/analyze")
 def analyze():
     if not 'username' in session:
         # add flash
-        return redirect("/main")
+        return redirect("/")
     return render_template("analyze.html")
 
 @app.route("/generate")
 def generate():
     if not 'username' in session:
         # add flash
-        return redirect("/main")
+        return redirect("/")
     return render_template("generate.html")
 
+@app.route("/logout")
+def logout():
+    session.pop('username', None)
+    return redirect("/")
+    
 if __name__ == "__main__":
     app.debug = True
     app.run()
