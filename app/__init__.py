@@ -19,7 +19,7 @@ def main():
         if random.choice([True, False]) == True:
             words.append(getRandomFakeWord())
         else:
-            getRandomTrueWord()
+            words.append(getRandomTrueWord())
     return render_template("main.html", words=words)
 
 @app.route("/login")

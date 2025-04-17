@@ -54,12 +54,12 @@ def wordCountT(word):
 
 def getRandomFakeWord():
     c,db = connect()
-    ret = c.execute("SELECT * FROM fake_words ORDER BY NEWID()").fetchone()
+    ret = c.execute("SELECT * FROM fake_words ORDER BY RANDOM()").fetchone()
     close(db)
     return [ret[0], ret[1], ret[2]]
 
 def getRandomTrueWord():
     c,db = connect()
-    ret = c.execute("SELECT * FROM true_wprds ORDER BY NEWID()").fetchone()
+    ret = c.execute("SELECT * FROM true_words ORDER BY RANDOM()").fetchone()
     close(db)
     return [ret[0], ret[1], ret[2]]
