@@ -13,7 +13,7 @@ app.secret_key = secret
 @app.route("/")
 def main():
     if 'username' in session:
-        return redirect("/dashbord")
+        return redirect("/dashboard")
     words=[]
     for i in range(10):
         if random.choice([True, False]) == True:
@@ -37,7 +37,7 @@ def register():
             session['username'] = username
             return render_template("dashboard.html")
         else:
-            # add flash
+            flash("This username is taken.")
             return render_template("register.html")
 
 @app.route("/dashboard")

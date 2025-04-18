@@ -10,6 +10,13 @@
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-SgOJa3DmI69IUzQ2PVdRZhwQ+dy64/BUtbMJw1MZ8t5HZApcHrRKUc4W0kG879m7" crossorigin="anonymous">
     </head>
     <body class="text-primary-emphasis bg-secondary-subtle">
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            {% for message in messages %}
+                <div class="text-danger">{{ message }}</div>
+            {% endfor %}
+        {% endif %}
+        {% endwith %}
         <nav class="pe-3 navbar navbar-dark bg-dark rounded-bottom text-white">
             <a class="navbar-brand fs-2 href="#">
                 <img src="static/images/salt_shaker.png" width="50" height="50" style="transform: rotate(20deg);" class="d-inline-block align-top" alt="">
@@ -25,6 +32,7 @@
                     <a class="nav-item nav-link" href="/analyze">Analyze</a>
                     <a class="nav-item nav-link" href="/search">Search</a>
                     <a class="nav-item nav-link" href="/generate">Generate</a>
+                    <a class="nav-item nav-link fs-4" href="/logout">Log Out</a>
                 </div>
             </div>
         </nav>   

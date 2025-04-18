@@ -15,6 +15,9 @@
                 <img src="static/images/salt_shaker.png" width="50" height="50" style="transform: rotate(20deg);" class="d-inline-block align-top" alt="">
                 SALT&PEPPER
             </a>
+            <div class="melting-text-container">
+                <h1 class="melting-text">FAKEOUT</h1>
+            </div>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -25,6 +28,7 @@
                     <a class="nav-item nav-link active" href="/analyze">Analyze</a>
                     <a class="nav-item nav-link" href="/search">Search</a>
                     <a class="nav-item nav-link" href="/generate">Generate</a>
+                    <a class="nav-item nav-link" href="/logout">Log Out</a>
                 </div>
             </div>
         </nav>   
@@ -32,6 +36,57 @@
         <div class="p-3">
             ANALYZE
         </div>
+        <style>
+            .melting-text-container {
+                position: relative;
+                overflow: hidden;
+            }
+
+            .melting-text {
+                font-size: 3rem;
+                font-weight: bold;
+                text-transform: uppercase;
+                color: #fff;
+                position: relative;
+                animation: melt 4s infinite ease-in-out;
+                background: linear-gradient(90deg, #d2d2d2, #ffffff, #8a8a8a);
+                -webkit-background-clip: text;
+                color: transparent;
+            }
+
+            .melting-text::before,
+            .melting-text::after {
+                content: 'FAKEOUT';
+                position: absolute;
+                width: 100%;
+                height: 100%;
+                background: linear-gradient(90deg, #d7d7d7, #ffffff, #878787);
+                -webkit-background-clip: text;
+                z-index: -1;
+                transform: scaleY(1);
+                animation: f 2s infinite ease-in-out;
+            }
+
+
+            /* Keyframes for melting effect */
+            @keyframes melt {
+                0%, 100% {
+                    transform: translateY(0);
+                }
+                50% {
+                    transform: translateY(20px);
+                }
+            }
+
+            @keyframes f {
+                0%, 100% {
+                    transform: scaleY(1);
+                }
+                50% {
+                    transform: scaleY(1.5);
+                }
+            }
+          </style>
     
     <body>
     
