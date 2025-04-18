@@ -1,4 +1,5 @@
 import sqlite3
+import json
 
 def connect():
     db = sqlite3.connect("SALT.db")
@@ -40,17 +41,43 @@ def updateCountT(word):
     c.execute("UPDATE true_words SET count = ? WHERE word = ?", (countT, word))
     close(db)
 
+def returnWordsF():
+    c,db = connect()
+    c.execute("SELECT word FROM fake_words")
+    db.commit()
+    fin = []
+    for i in c.fetchall():
+        for j in i:
+            fin.append(j)
+    return fin
+
+def returnWordsT():
+    c,db = connect()
+    c.execute("SELECT word FROM true_words")
+    db.commit()
+    fin = []
+    for i in c.fetchall():
+        for j in i:
+            fin.append(j)
+    return fin
+
 def wordCountF(word):
     c,db = connect()
-    ret = c.execute("SELECT count FROM fake_words WHERE word = ?", (word,)).fetchone()
-    close(db)
-    return ret
+    ret = c.execute("SELECT count FROM fake_words WHERE word = ?", (word,))
+    db.commit()
+    if word not in returnWordsF():
+        return 0
+    else:
+        return list(c.fetchone())[0]
 
 def wordCountT(word):
     c,db = connect()
-    ret = c.execute("SELECT count FROM true_words WHERE word = ?", (word,)).fetchone()
-    close(db)
-    return ret
+    ret = c.execute("SELECT count FROM true_words WHERE word = ?", (word,))
+    db.commit()
+    if word not in returnWordsT():
+        return 0
+    else:
+        return list(c.fetchone())[0]
 
 def getRandomFakeWord():
     c,db = connect()
@@ -76,9 +103,48 @@ def attemptAddUser(username, password):
 
 def getUser(user):
     c, db = connect()
-    ret = c.execute("SELECT * FROM users WHERE username = ?", (username,)).fetchone()
+    ret = c.execute("SELECT * FROM users WHERE username = ?", (user,)).fetchone()
     close(db)
     return [ret[0], ret[1]]
+
+def returnF():
+    c,db = connect()
+    ret = c.execute("SELECT * FROM fake_words").fetchall()
+    db.commit()
+    return ret
+
+def returnT():
+    c,db = connect()
+    ret = c.execute("SELECT * FROM true_words").fetchall()
+    db.commit()
+    return ret
+
+def getRandomFakeWord():
+    c,db = connect()
+    ret = c.execute("SELECT * FROM fake_words ORDER BY RANDOM()").fetchone()
+    close(db)
+    return [ret[0], ret[1], ret[2]]
+
+t = returnT()
+f = returnF()
+
+all_dictF=[]
+all_dictT=[]
+
+for i in range(0,len(t)):
+    single_dict = dict(name=t[i][0], count=t[i][1], color=t[i][2])
+    all_dictT.append(single_dict)
+
+for i in range(0,len(f)):
+    single_dict = dict(name=f[i][0], count=f[i][1], color=f[i][2])
+    all_dictF.append(single_dict)
+    
+all_dictT.extend(all_dictF)
+
+with open("pleasework.json", "w") as f:
+    json.dump(all_dictT, f)
+
+
 
 
 

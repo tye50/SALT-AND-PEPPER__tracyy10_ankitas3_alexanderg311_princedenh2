@@ -32,8 +32,10 @@
     
        <form method="POST">
         <h1>Search for a Word</h1>
-        <input type="text" name="query" placeholder="Input a word to find its prevalency">
-        <button type="submit">Search</button>
+        <div class="search-word">
+        <input type="text" name="query" aria-label="Search" aria-describedby="search-addon" class="form-control rounded" placeholder="Input a word to find its prevalency" >
+        <button type="submit" id="button-search">Search</button>
+    </div>
        </form>
        {% if query %}
         <h2>Search results for: {{ query }}</h2>
@@ -51,5 +53,18 @@
 
     </body>
         
-    
+    <style>
+
+        #button-search {
+            margin: 15px;
+            padding: 10px;
+        }
+        .search-word {
+            display: flex;
+        }
+        button {
+            margin-left: 20px;
+            margin-right: 20px;
+        }
+    </style>
 </HTML>

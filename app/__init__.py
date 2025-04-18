@@ -50,15 +50,15 @@ def dashboard():
 
 @app.route("/search", methods=['GET','POST'])
 def search():
-     if not 'username' in session:
-        # add flash
-        return redirect("/")
+    # if not 'username' in session:
+    #     # add flash
+    #     return redirect("/")
     query = request.form.get("query")
-    count = returnWordF(query)
+    count = wordCountF(query)
     words = returnWordsF()
 
-    countR = returnWordR(query)
-    wordsR = returnWordsR()
+    countR = wordCountT(query)
+    wordsR = returnWordsT()
     return render_template("search.html", query=query, count=count, words=words, countR=countR, wordsR=wordsR)
 
 @app.route("/analyze")
