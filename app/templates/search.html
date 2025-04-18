@@ -32,33 +32,39 @@
                 </div>
             </div>
         </nav>
-    
-       <form method="POST">
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            {% for message in messages %}
+                <div class="border border-danger rounded text-danger fs-4 p-2 m-3 bg-danger bg-opacity-10" style="text-align: center; font-weight: bold;">{{ message }}</div>
+            {% endfor %}
+        {% endif %}
+        {% endwith %}
+        <form method="POST">
         <h1>Search for a Word</h1>
-        <div class="search-word">
-        <input type="text" name="query" aria-label="Search" aria-describedby="search-addon" class="form-control rounded" placeholder="Input a word to find its prevalency" >
-        <button type="submit" id="button-search">Search</button>
-    </div>
-       </form>
+            <div class="search-word">
+                <input type="text" name="query" aria-label="Search" aria-describedby="search-addon" class="form-control rounded" placeholder="Input a word to find its prevalency" >
+                <button type="submit" id="button-search">Search</button>
+            </div>
+        </form>
        {% if query %}
-        <h2>Search results for: {{ query }}</h2>
-        {% if query in words and query in wordsR %}
-            <div class="b">
-            <h3 class="f">Fake: {{ query}} : {{ count }}</h3>
-            <h3 class="r">Real: {{ query}} : {{ countR }}</h3>
-            </div>
-        {% elif query not in words and query in wordsR %}
-            <div class="b">
-            <h3 class="r">Real: {{ query}} : {{ countR }}</h3>
-            </div>
-        {% elif query in words and query not in wordsR %}
-        <div class="b">
-            <h3 class="f">Fake: {{ query}} : {{ count }}</h3>
-        </div>
-        {% elif query not in words %}
-            <h3>Word not found.</h3>
-        {% endif %}
-        {% endif %}
+       <h2>Search results for: {{ query }}</h2>
+       {% if query in words and query in wordsR %}
+           <div class="b">
+           <h3 class="f">Fake: {{ query}} : {{ count }}</h3>
+           <h3 class="r">Real: {{ query}} : {{ countR }}</h3>
+           </div>
+       {% elif query not in words and query in wordsR %}
+       <div class="b">
+           <h3 class="r">Real: {{ query}} : {{ countR }}</h3>
+           </div>
+       {% elif query in words and query not in wordsR %}
+       <div class="b">
+           <h3 class="f">Fake: {{ query}} : {{ count }}</h3>
+       </div>
+       {% elif query not in words %}
+           <h3>Word not found.</h3>
+           {% endif %}
+       {% endif %}
 
     </body>
         

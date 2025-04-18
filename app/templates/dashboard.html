@@ -32,7 +32,13 @@
                 </div>
             </div>
         </nav>   
-    
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            {% for message in messages %}
+                <div class="border border-danger rounded text-danger fs-4 p-2 m-3 bg-danger bg-opacity-10" style="text-align: center; font-weight: bold;">{{ message }}</div>
+            {% endfor %}
+        {% endif %}
+        {% endwith %}
         <div class="p-3">
             DASHBOARD
         </div>

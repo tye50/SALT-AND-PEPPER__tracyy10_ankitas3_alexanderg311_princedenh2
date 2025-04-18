@@ -1,5 +1,4 @@
 <!DOCTYPE HTML>
-
     <head>
         <title> Fakeout [MAIN] </title>
         <meta charset="UTF-8">
@@ -34,22 +33,25 @@
                 </div>
             </div>
         </nav>
-
-        
-        <div id="wordCount"></div>
-        <div class="container-fluid mx-auto" style="text-align: center">
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            {% for message in messages %}
+                <div class="border border-danger rounded text-danger fs-4 p-2 m-3 bg-danger bg-opacity-10" style="text-align: center; font-weight: bold;">{{ message }}</div>
+            {% endfor %}
+        {% endif %}
+        {% endwith %}
+        <div id="wordCount" class="p-2" style="width: 5%; left: -15%; position: fixed;"></div>
+        <div class="container-fluid mx-auto" style="position: fixed; top:30%; right: 10%; width: 30%; text-align: center;">
             <br><br><br>
-            
-            <form action="/register">
-                Please create an acocunt to access more functions.<br>
-                <input type="submit" value="Register">
-            </form>
-            <br>
-            Already have an account? <a href="/login">Log in</a> here.
-        </div>
-
-        
-        
+            <div class="border border-secondary border-3 rounded border-opacity-75 p-5 bg-secondary bg-opacity-10">
+                <form action="/register">
+                    Please create an acocunt to access more functions.<br>
+                    <input type="submit" value="Register">
+                </form>
+                <br>
+                Already have an account? Log in <a href="/login">here</a>.
+            </div>
+        </div> 
     </body>
     <script>
         d3.json("https://ankita320.github.io/S-P-JSON-FILE/pleasework.json", (function(d) {
