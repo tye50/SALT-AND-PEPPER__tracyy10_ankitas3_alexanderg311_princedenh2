@@ -11,7 +11,7 @@ build()
 #          row = row[1].strip().lower().replace("/", " ").replace(":", " ").replace(",", " ").replace(".", " ").replace("!", " ").replace("?", " ").replace(";", " ").replace("'", "").replace('"', " ").replace('(', " ").replace(')', " ").replace('[', " ").replace(']', " ").replace('{', " ").replace('}', " ").replace(',', " ").replace('.', " ").replace('-', "").replace('_', " ")
 #          words = row.split()
 #          for i in words:
-#              if wordCountF(i) == None:
+#              if wordCountF(i) == 0:
 #                  addWordF(i)
 #                  #print("added word: " + i + " to FALSE")
 #              else:
@@ -26,7 +26,7 @@ with open('data/sectionT.csv', 'r', encoding="utf8") as file:
          row = row[1].strip().lower().replace("/", " ").replace(":", " ").replace(",", " ").replace(".", " ").replace("!", " ").replace("?", " ").replace(";", " ").replace("'", "").replace('"', " ").replace('(', " ").replace(')', " ").replace('[', " ").replace(']', " ").replace('{', " ").replace('}', " ").replace(',', " ").replace('.', " ").replace('-', "").replace('_', " ")
          words = row.split()
          for i in words:
-             if wordCountT(i) == None:
+             if wordCountT(i) == 0:
                  addWordT(i)
                  #print("added word: " + i + " to TRUE")
              else:
