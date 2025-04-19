@@ -4,6 +4,10 @@ import random
 import csv
 import sqlite3
 
+
+import matplotlib.pyplot as plt
+import numpy as np
+
 from db import *
 
 app = Flask(__name__)
@@ -59,6 +63,15 @@ def search():
 
     countR = wordCountT(query)
     wordsR = returnWordsT()
+
+    # fake_or_real = np.array(["Fake", "Real"])
+    # values = np.array([count, countR])
+
+    # plt.bar(fake_or_real, values, color="black")
+    # plt.xlabel("True or False")
+    # plt.ylabel("Count")
+    # plt.title(query)
+    # plt.savefig('torf.png')
     return render_template("search.html", query=query, count=count, words=words, countR=countR, wordsR=wordsR)
 
 @app.route("/analyze")
