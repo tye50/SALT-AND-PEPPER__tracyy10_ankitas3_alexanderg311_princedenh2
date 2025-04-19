@@ -3,8 +3,9 @@ import os
 import random
 import csv
 import sqlite3
-
-
+import news_classifier
+import pickle
+import news_scrape
 import matplotlib.pyplot as plt
 import numpy as np
 
@@ -82,11 +83,22 @@ def search():
     # plt.savefig('torf.png')
     return render_template("search.html", query=query, count=count, words=words, countR=countR, wordsR=wordsR)
 
-@app.route("/analyze")
+@app.route("/analyze", methods=['GET', 'POST'])
 def analyze():
     if not 'username' in session:
         flash("Please log in to access this page.")
         return redirect("/")
+    if request.method == 'POST':
+        link = request.form['link']
+        try:
+            text = news_scrape.get_text(link)
+            p = news_classifier.get_probability(model, text)
+            return render_template("analyze.html", link=link, text=text, p_true=p[0],p_false=p[1])
+        except Exception as e:
+            print(e)
+            flash('Invalid URL or unable to fetch the article. Please try again.')
+            return render_template("analyze.html", link=None, text=None, p_true=None, p_false=None)
+    return render_template("analyze.html",link=None, text=None, p_true=None, p_false=None)
     return render_template("analyze.html")
 
 @app.route("/generate")
@@ -94,6 +106,7 @@ def generate():
     if not 'username' in session:
         flash("Please log in to access this page.")
         return redirect("/")
+    
     return render_template("generate.html")
 
 @app.route("/logout")
@@ -103,4 +116,7 @@ def logout():
     
 if __name__ == "__main__":
     app.debug = True
+    model = pickle.load(open("finalized_model.sav", "rb"))
+    news_classifier.fit_tfidf_vectorizer()
+    print("Model loaded")
     app.run()

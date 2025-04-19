@@ -39,9 +39,37 @@
             {% endfor %}
         {% endif %}
         {% endwith %}
-        <div class="p-3">
-            ANALYZE
-        </div>
+        <div class="container text-center">
+            <div class="row row-2">
+              <div class="col">        <form action="/analyze" method="post">
+                <div class="form-group">
+                    <label for="link"><p class="h3">Article Link</p></label>
+                    <input type="text" class="form-control" id="link" placeholder="Article Link" name="link" required>
+                    <br> <button type="submit" class="btn btn-primary">Submit</button>  
+                </div>
+                
+            </form></div>
+              <div class="col"><p class="h3">Results</p><br> 
+    <p class="h5">Link: </p>{{link}}
+                <p class="h5">Article:</p>
+                <div
+                class="overflow-auto p-3 bg-light"
+                style="
+                    max-width: 100%;
+                    max-height: 250px;
+                ">
+            
+                    {{text}} 
+                
+            
+            </div>
+            <p class="h5">False: </p> {{p_true}}<br>
+             <p class="h5">True:</p> {{p_false}} <br>
+        
+    
+    
+            </div>
+          </div>
         <style>
             .melting-text-container {
                 position: relative;
@@ -94,6 +122,6 @@
             }
           </style>
     
-    <body>
+        <body>
     
 </HTML>
