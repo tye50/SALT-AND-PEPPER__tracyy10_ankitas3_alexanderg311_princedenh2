@@ -17,46 +17,54 @@ app.secret_key = secret
 @app.route("/")
 def main():
     if 'username' in session:
-        return redirect("/dashbord")
-    words=[]
-    for i in range(10):
-        if random.choice([True, False]) == True:
-            words.append(getRandomFakeWord())
-        else:
-            words.append(getRandomTrueWord())
-    return render_template("main.html", words=words)
+        return redirect("/dashboard")
+    return render_template("main.html")
 
 @app.route("/login", methods=['GET','POST'])
 def login():
-    return render_template("login.html")
-
+    if request.method=="GET":
+        return render_template("login.html")
+    else:
+        username=request.form.get("username")
+        password=request.form.get("password")
+        checkUser=getUser(username)
+        if checkUser==0:
+            flash("THIS ACCOUNT DOES NOT EXIST")
+            return render_template("login.html")
+        elif password!=checkUser[1]:
+            flash("INCORRECT PASSWORD")
+            return render_template("login.html")
+        else:
+            session['username'] = username
+            return render_template("dashboard.html")
+        
 @app.route("/register", methods=['GET','POST'])
 def register():
     if request.method=="GET":
         return render_template("register.html")
     else:
-        username=request.form.get("user")
-        password=request.form.get("pass")
+        username=request.form.get("username")
+        password=request.form.get("password")
         if (attemptAddUser(username, password) == 0):
             session['username'] = username
             return render_template("dashboard.html")
         else:
-            # add flash
+            flash("THIS USERNAME IS TAKEN")
             return render_template("register.html")
 
 @app.route("/dashboard")
 def dashboard():
     if not 'username' in session:
-        # add flash
+        flash("Please log in to access this page.")
         return redirect("/")
     return render_template("dashboard.html")
 
 
 @app.route("/search", methods=['GET','POST'])
 def search():
-    # if not 'username' in session:
-    #     # add flash
-    #     return redirect("/")
+    if not 'username' in session:
+         flash("Please log in to access this page.")
+         return redirect("/")
     query = request.form.get("query")
     count = wordCountF(query)
     words = returnWordsF()
@@ -77,14 +85,14 @@ def search():
 @app.route("/analyze")
 def analyze():
     if not 'username' in session:
-        # add flash
+        flash("Please log in to access this page.")
         return redirect("/")
     return render_template("analyze.html")
 
 @app.route("/generate")
 def generate():
     if not 'username' in session:
-        # add flash
+        flash("Please log in to access this page.")
         return redirect("/")
     return render_template("generate.html")
 
