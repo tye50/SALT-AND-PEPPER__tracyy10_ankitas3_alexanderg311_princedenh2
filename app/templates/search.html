@@ -40,29 +40,29 @@
         {% endif %}
         {% endwith %}
         <form method="POST">
-        <h1>Search for a Word</h1>
-            <div class="search-word">
+        <h1 class="ps-3 pt-3">Search for a Word</h1>
+            <div class="search-word p-3">
                 <input type="text" name="query" aria-label="Search" aria-describedby="search-addon" class="form-control rounded" placeholder="Input a word to find its prevalency" >
                 <button type="submit" id="button-search">Search</button>
             </div>
         </form>
        {% if query %}
-       <h2>Search results for: {{ query }}</h2>
+       <h2 class="p-3">Search results for: {{ query }}</h2>
        {% if query in words and query in wordsR %}
            <div class="b">
-           <h3 class="f">Fake: {{ query}} : {{ count }}</h3>
-           <h3 class="r">Real: {{ query}} : {{ countR }}</h3>
+           <h3 class="f">"{{ query}}" found in fake: {{ count }}</h3>
+           <h3 class="r"> "{{ query}}" found in true : {{ countR }}</h3>
            </div>
        {% elif query not in words and query in wordsR %}
-       <div class="b">
-           <h3 class="r">Real: {{ query}} : {{ countR }}</h3>
+       <div class="b p-3">
+           <h3 class="r"> "{{ query}}" found in true : {{ countR }}</h3>
            </div>
        {% elif query in words and query not in wordsR %}
-       <div class="b">
-           <h3 class="f">Fake: {{ query}} : {{ count }}</h3>
+       <div class="b p-3">
+           <h3 class="f">"{{ query}}" found in fake: {{ count }}</h3>
        </div>
        {% elif query not in words %}
-           <h3>Word not found.</h3>
+           <h3 class="p-3">Word not found.</h3>
            {% endif %}
        {% endif %}
 
