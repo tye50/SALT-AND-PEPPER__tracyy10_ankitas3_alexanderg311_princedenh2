@@ -86,7 +86,7 @@ def search():
     plt.ylabel("Count")
     plt.title(query)
     plt.savefig('torf.png')
-    shutil.move("./torf.png", "static/torf.png")
+    # shutil.move("./torf.png", "static/torf.png")
     plt.close()
     return render_template("search.html", query=query, count=count, words=words, countR=countR, wordsR=wordsR)
 
