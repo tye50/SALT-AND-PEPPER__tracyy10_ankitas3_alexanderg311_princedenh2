@@ -53,33 +53,13 @@
                 <button type="submit" id="button-search">Search</button>
             </div>
         </form>
-       {% if query %}
-        <h2>Search results for: {{ query }}</h2>
-        {% if query in words and query in wordsR %}
-            <div class="b">
-            <h3 class="f">Fake: {{ count }}</h3>
-            <h3 class="r">Real: {{ countR }}</h3>
-            
-            </div>
-        {% elif query not in words and query in wordsR %}
-            <div class="b">
-            <h3 class="r">Real: {{ countR }}</h3>
-            
-            </div>
-        {% elif query in words and query not in wordsR %}
-        <div class="b">
-            <h3 class="f">Fake: {{ count }}</h3>
-           
-        </div>
-        {% elif query not in words %}
-            <h3>Word not found.</h3>
-        {% endif %}
-        {% endif %}
+      
        <h2>Search results for: {{ query }}</h2>
        {% if query in words and query in wordsR %}
            <div class="b">
            <h3 class="f">"{{ query}}" found in fake: {{ count }}</h3>
            <h3 class="r"> "{{ query}}" found in true : {{ countR }}</h3>
+           <img src="static/torf.png">
            </div>
        {% elif query not in words and query in wordsR %}
        <div class="b p-3">
@@ -92,7 +72,6 @@
        {% elif query not in words %}
            <h3 class="p-3">Word not found.</h3>
            {% endif %}
-       {% endif %}
 
     </body>
         

@@ -6,8 +6,11 @@ import sqlite3
 import news_classifier
 import pickle
 import news_scrape
+import matplotlib
+matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 import numpy as np
+import shutil 
 
 from db import *
 
@@ -73,14 +76,18 @@ def search():
     countR = wordCountT(query)
     wordsR = returnWordsT()
 
-    # fake_or_real = np.array(["Fake", "Real"])
-    # values = np.array([count, countR])
+    fake_or_real = np.array(["Fake", "Real"])
+    values = np.array([count, countR])
 
-    # plt.bar(fake_or_real, values, color="black")
-    # plt.xlabel("True or False")
-    # plt.ylabel("Count")
-    # plt.title(query)
-    # plt.savefig('torf.png')
+
+    plt.bar(fake_or_real, values, color="black")
+    plt.rcParams['font.family'] = 'Outfit' 
+    plt.xlabel("True or False")
+    plt.ylabel("Count")
+    plt.title(query)
+    plt.savefig('torf.png')
+    shutil.move("./torf.png", "static/torf.png")
+    plt.close()
     return render_template("search.html", query=query, count=count, words=words, countR=countR, wordsR=wordsR)
 
 @app.route("/analyze", methods=['GET', 'POST'])
@@ -116,7 +123,7 @@ def logout():
     
 if __name__ == "__main__":
     app.debug = True
-    model = pickle.load(open("finalized_model.sav", "rb"))
-    news_classifier.fit_tfidf_vectorizer()
+    # model = pickle.load(open("finalized_model.sav", "rb"))
+    # news_classifier.fit_tfidf_vectorizer()
     print("Model loaded")
     app.run()
