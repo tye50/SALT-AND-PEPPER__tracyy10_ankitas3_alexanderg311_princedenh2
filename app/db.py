@@ -2,6 +2,7 @@ import sqlite3
 import json
 import random
 
+
 def connect():
     db = sqlite3.connect("SALT.db")
     c = db.cursor()
@@ -129,28 +130,28 @@ def getRandomFakeWord():
     close(db)
     return [ret[0], ret[1], ret[2]]
 
-
+build()
 
 #########################################################################################
     
-t = returnT()
-f = returnF()
+# t = returnT()
+# f = returnF()
 
-all_dictF=[]
-all_dictT=[]
+# all_dictF=[]
+# all_dictT=[]
 
-for i in range(0,len(t)):
-    single_dict = dict(name=t[i][0], count=(t[i][1]), color=t[i][2])
-    all_dictT.append(single_dict)
+# for i in range(0,len(t)):
+#     single_dict = dict(name=t[i][0], count=(t[i][1]), color=t[i][2])
+#     all_dictT.append(single_dict)
 
-for i in range(0,len(f)):
-    single_dict = dict(name=f[i][0], count=(f[i][1]), color=f[i][2])
-    all_dictF.append(single_dict)
+# for i in range(0,len(f)):
+#     single_dict = dict(name=f[i][0], count=(f[i][1]), color=f[i][2])
+#     all_dictF.append(single_dict)
     
-all_dictT.extend(all_dictF)
+# all_dictT.extend(all_dictF)
 
-with open("pleasework.json", "w") as f:
-    json.dump(all_dictT, f)
+# with open("pleasework.json", "w") as f:
+#     json.dump(all_dictT, f)
 
 
 
