@@ -39,7 +39,7 @@
             {% endfor %}
         {% endif %}
         {% endwith %}
-        <div class="container text-center">
+        <div class="container text-center position-absolute top-50 start-50 translate-middle">
             <div class="row row-2">
               <div class="col">        <form action="/analyze" method="post">
                 <div class="form-group">
@@ -50,7 +50,7 @@
                 
             </form></div>
               <div class="col"><p class="h3">Results</p><br> 
-    <p class="h5">Link: </p>{{link}}
+                <p class="h5">Link: </p>{{link}}
                 <p class="h5">Article:</p>
                 <div
                 class="overflow-auto p-3 bg-light"

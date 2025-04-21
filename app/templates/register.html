@@ -39,7 +39,7 @@
             {% endfor %}
         {% endif %}
         {% endwith %}
-        <div class="p-3">
+        <div class="flex p-3 border border-dark-subtle rounded text-center w-25 fs-4 position-absolute top-50 start-50 translate-middle">
             <form action="/register" method="POST">
                 Username
                 <input type="text" name="username" placeholder="Username">
@@ -47,7 +47,7 @@
                 Password
                 <input type="text" name="password" placeholder="Password">
                 <br>
-                <input type="submit" value="Create">
+                <input type="submit" value="Create" class="btn btn-primary mt-2">
             </form>
             Already have an account? Log in <a href="/login">here</a>.
         </div>
