@@ -150,12 +150,6 @@ for i in range(0,len(f)):
     if f[i][0] not in filler:
         single_dict = dict(name=f[i][0], count=(f[i][1]), color=f[i][2])
         all_dictF.append(single_dict)
-    
-all_dictT.extend(all_dictF)
-
-with open("pleasework.json", "w") as f:
-    json.dump(all_dictT, f)
-
 
 def change_size(modify_dict):
     total_dict = all_dictF + all_dictT
@@ -186,7 +180,7 @@ def change_size(modify_dict):
             i["count"] = 65
         elif font_size> 2 and font_size<= 5:
             i["count"] = 70
-        elif font_size> 5 and font_size<= 10:
+        elif font_size> 5 and font_size<= 10:he__/db.cpyt
             i["count"] = 75
         elif font_size> lo+(4*rate) and font_size<= lo + (5*rate):
             i["count"] = 80
@@ -209,12 +203,6 @@ def change_size(modify_dict):
 all_dictF = change_size(copy.deepcopy(all_dictF))
 all_dictT = change_size(copy.deepcopy(all_dictT))
 
-
-
-
-
-
-
-
-
-
+all_dictT.extend(all_dictF)
+with open("pleasework.json", "w") as f:
+    json.dump(all_dictT, f)
