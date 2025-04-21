@@ -180,7 +180,7 @@ def change_size(modify_dict):
             i["count"] = 65
         elif font_size> 2 and font_size<= 5:
             i["count"] = 70
-        elif font_size> 5 and font_size<= 10:he__/db.cpyt
+        elif font_size> 5 and font_size<= 10:
             i["count"] = 75
         elif font_size> lo+(4*rate) and font_size<= lo + (5*rate):
             i["count"] = 80
