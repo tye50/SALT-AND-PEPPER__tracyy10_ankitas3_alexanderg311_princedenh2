@@ -50,6 +50,16 @@ tracyY - 2025-04-10 06:13
 princedenH - 2025-04-14 12:00
 - integrated sci kit model with flask
 
+ankitaS - 2025-04-14 14:32
+- integrated db with json file to use d3 visualizations
+- integrated d3 with db to display words by prevalency
+
+ankitaS - 2025-04-15 13:53
+- created search function to display words based on prevalency
+
+ankitaS - 2025-04-15 5:53
+- added bar gtraph feature showing word prevalency upon search
+
 DESIGN REVISIONS THUS FAR:
 ------------------------------------
 ====================================
