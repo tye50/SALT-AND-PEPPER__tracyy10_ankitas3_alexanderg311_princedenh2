@@ -123,7 +123,7 @@ def logout():
     
 if __name__ == "__main__":
     app.debug = True
-    # model = pickle.load(open("finalized_model.sav", "rb"))
-    # news_classifier.fit_tfidf_vectorizer()
+    model = pickle.load(open("finalized_model.sav", "rb"))
+    news_classifier.fit_tfidf_vectorizer()
     print("Model loaded")
     app.run()

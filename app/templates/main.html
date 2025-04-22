@@ -177,11 +177,12 @@
                     .style("font-size", d => `${d.size}px`)
                     .style("fill", d => d.color)
                     .attr("text-anchor", "middle")
-                    .style("font-family", "Outfit")
+                    .style("font-family", "Arial")
                     .style("font-weight", "bold")
                     .attr("transform", d => `translate(${d.x},${d.y}) rotate(${d.rotate})`)
                     .text(d => d.text);
             }
+            
         });
     </script>
 
