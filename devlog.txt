@@ -61,6 +61,10 @@ ankitaS - 2025-04-15 13:53
 ankitaS - 2025-04-15 5:53
 - added bar gtraph feature showing word prevalency upon search
 
+tracyY - 2025-04-22 4:30
+- centered text on some pages, css
+- website up!
+
 DESIGN REVISIONS THUS FAR:
 ------------------------------------
 ====================================
