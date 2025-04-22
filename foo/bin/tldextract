@@ -1,8 +1,0 @@
-#!/Users/GordonT/Downloads/softdev/SALT-AND-PEPPER__tracyy10_ankitas3_alexanderg311_princedenh2/foo/bin/python3
-# -*- coding: utf-8 -*-
-import re
-import sys
-from tldextract.cli import main
-if __name__ == '__main__':
-    sys.argv[0] = re.sub(r'(-script\.pyw|\.exe)?$', '', sys.argv[0])
-    sys.exit(main())
