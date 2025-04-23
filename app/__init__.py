@@ -41,7 +41,7 @@ def login():
             return render_template("login.html")
         else:
             session['username'] = username
-            return render_template("dashboard.html")
+            return render_template("home.html")
         
 @app.route("/register", methods=['GET','POST'])
 def register():
