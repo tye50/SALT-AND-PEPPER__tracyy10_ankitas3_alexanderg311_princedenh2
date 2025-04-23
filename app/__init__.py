@@ -10,10 +10,14 @@ import matplotlib
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 import numpy as np
-import shutil 
+import shutil
+import requests
+import urllib.request
+import urllib.parse
+import json
 
 from db import *
-
+from sentiment import *
 
 app = Flask(__name__)
 secret = os.urandom(32)
@@ -106,8 +110,9 @@ def analyze():
         link = request.form['link']
         try:
             text = news_scrape.get_text(link)
+            api = text2data(text)
             p = news_classifier.get_probability(model, text)
-            return render_template("analyze.html", link=link, text=text, p_true=p[0],p_false=p[1])
+            return render_template("analyze.html", link=link, text=text, p_true=p[0],p_false=p[1], t2d=api)
         except Exception as e:
             print(e)
             flash('Invalid URL or unable to fetch the article. Please try again.')
