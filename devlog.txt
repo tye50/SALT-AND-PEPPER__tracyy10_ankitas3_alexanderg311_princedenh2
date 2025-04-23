@@ -83,9 +83,20 @@ tracyY - 2025-04-22 4:30
 - centered text on some pages, css
 - website up!
 
-saschagZ - 2025-04-22 8:00
+saschaGZ - 2025-04-22 8:00
 - Created a "home" page
 - Logged in users now path to the home page rather than the dashboard
+
+tracyY - 2025-04-23 21:00
+- added text2data API to analyzer (the API sucks because very limited transactions)
+- "It works on my machine"
+- troubleshooting analyzer on droplet
+
+ankitaS 2025-04-23 11:20
+- Fixed the D3 not working (reverted the new filters)
+
+princedenH 2025-04-23 21:00
+- troubleshooting analyzer on droplet
 
 DESIGN REVISIONS THUS FAR:
 ------------------------------------
@@ -94,3 +105,11 @@ DESIGN REVISIONS THUS FAR:
 - New SQLite3 tables have been added
 - Articles table is now words and prevalence table
 - Deleted one of the linked datasets (both kaggle resources contained the same two csv files)
+
+HOME STRETCH CHECKLIST:
+------------------------------------
+* Add API; push freshest to droplet; update devlog&design doc :: Tracy
+* Fix D3 :: Ankita
+* Get analyzer working :: Princeden
+* Get analyzer working; more CSS :: Sascha
+====================================
