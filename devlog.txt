@@ -16,6 +16,9 @@ ankitaS -- 2025-04-01 10:20
 princedenH -- 2025-04-02 10:20
 - added word counting function to news_analysis.py
 
+saschaGZ -- 2025-04-02 10:20 
+- Worked with Princeden on word counting function
+
 tracyY -- 2025-04-03 6:16
 - added base html files and routing, updated README
 
@@ -40,15 +43,24 @@ princedenH - 2025-04-07 11:01
 - trained sci kit classifier 
 - added prediction function 
 
+saschaGZ -- 2025-04-07 11:01 
+- Worked with Princeden on training sci kit classifier and prediction function. Conducted research into how the processes work. 
+
 princedenH - 2025-04-08 11:01
 - began researching text generator 
 - updated sci kit model 
+
+saschaGZ - 2025-04-08 11:01
+- Worked with Princeden on updating sci kit model
 
 tracyY - 2025-04-10 06:13
 - sentiment API is in place (still on my branch)
 
 princedenH - 2025-04-14 12:00
 - integrated sci kit model with flask
+
+saschaGZ - 2025-04-14 12:00
+- Worked with Princeden integrating sci kit model
 
 ankitaS - 2025-04-14 14:32
 - integrated db with json file to use d3 visualizations
@@ -61,9 +73,19 @@ ankitaS - 2025-04-15 13:53
 ankitaS - 2025-04-15 5:53
 - added bar gtraph feature showing word prevalency upon search
 
+saschaGZ - 2025-04-19 6:00
+- Minor bug fixes to search
+
+saschaGZ - 2025-04-20 6:00
+- Changed login/logout screen to separate the word cloud from the box with functions. 
+
 tracyY - 2025-04-22 4:30
 - centered text on some pages, css
 - website up!
+
+saschagZ - 2025-04-22 8:00
+- Created a "home" page
+- Logged in users now path to the home page rather than the dashboard
 
 DESIGN REVISIONS THUS FAR:
 ------------------------------------
