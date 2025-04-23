@@ -4,9 +4,9 @@ Our website combs through a dataset of over 38,000 fake and true news articles t
 Added ability for users to write their own blocks of text to be rated “true” or “false.” Rather than being assigned a boolean true or false value, each article is rather given a score (some real number from 0 to 1) determining its truth value. This will turn our model from discrete to continuous, further allowing one to better understand the outputted data and allowing one to draw larger conclusions. 
 
 ## Roster & Roles
-Tracy Ye - Project Manager & DB <br />
+Tracy Ye - Project Manager & DB & API<br />
 Ankita Saha - Data Visualization/Cleaning & FEF (Bootstrap) <br />
-Sascha Gordon-Zolov - Flask person <br />
+Sascha Gordon-Zolov - Flask person & CSS <br />
 Princeden H. - Pytorch/Data Classification <br />
 
 ## Install Guide
@@ -48,5 +48,15 @@ http://127.0.0.1:5000
 ## Alternative Launch Code
 1. Follow this link!
 ```
-http://138.197.96.116:5000
+http://salt.tye50.tech/
 ```
+
+### FEATURE SPOTLIGHT
+* Check out Sascha and Princeden's news_classifier.py created with scikit
+* Read the how-to at https://github.com/stuy-softdev/notes-and-code/blob/main/kb/how-to/howto_scikit.md
+* This article was used to test the analyze page (both the API and the trained model returned many interesting values): https://www.bbc.com/news/articles/c4g8ry3x172o
+* Or try inserting an Onion article!
+
+### KNOWN BUGS/ISSUES
+* The Text2Data api offers very few transactions per account, so the website's version will likely not work and cause an "Invalid URL" error (flash message). To work around this, clone the repository locaclly and fill the private key and secret key values in with your own (provisioning an account is very convenient).
+* Alas, the generate streatch goal was never reached
