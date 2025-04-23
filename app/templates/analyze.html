@@ -71,8 +71,18 @@
             </div>
           </div>
           
-          <div>
-              {{t2d}}
+          <div class="container text-center border border-rounded p-3 bg-white bg-opacity-50">
+              The sentiment of this article is {{senti}}
+              with a magnitude of {{mag}}.<br>
+              This is likely a(n) {{obj}} article.
+              <br>
+              <br>
+              {% for i in theme %}
+                  {{i[0]}} occurs {{i[3]}} times and has a {{i[1]}} [mag{{i[2]}}] effect on the rating.<br>
+              {% endfor %}
+              {% for i in key %}
+                  {{i[0]}} occurs {{i[4]}} times and has a {{i[2]}} [mag{{i[3]}}] effect on the rating.<br>
+              {% endfor %}
           </div>
           
         <style>

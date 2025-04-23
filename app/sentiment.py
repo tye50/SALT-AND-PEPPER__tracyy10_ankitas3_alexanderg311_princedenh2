@@ -34,5 +34,12 @@ def text2data(text):
         ret["Keywords"]=keywords
         
         return ret # return dictionary
-    else: 
-        return 0 # error returned
+    else:
+        ret={
+            "Sentiment":"N/A",
+            "Magnitude":"N/A",
+            "Objectivity":"N/A",
+            "Theme":["N/A_key_phrase", "N/A_pos_or_neg", "N/A_magnitude", "N/A_occurances"],
+            "Keywords":["N/A_key_phrase", "N/A_sentence", "N/A_pos_or_neg", "N/A_magnitude", "N/A_occurances"]
+            }
+        return ret # error returned
