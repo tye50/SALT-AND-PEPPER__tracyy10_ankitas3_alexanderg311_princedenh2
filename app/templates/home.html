@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Fakeout [MAIN]</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/gh/holtzy/D3-graph-gallery@master/LIB/d3.layout.cloud.js"></script>
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        .melting-text-container {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .melting-text {
+            font-size: 3rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            color: #fff;
+            position: relative;
+            animation: melt 4s infinite ease-in-out;
+            background: linear-gradient(90deg, #d2d2d2, #ffffff, #8a8a8a);
+            -webkit-background-clip: text;
+            color: transparent;
+        }
+
+        .melting-text::before,
+        .melting-text::after {
+            content: 'FAKEOUT';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, #d7d7d7, #ffffff, #878787);
+            -webkit-background-clip: text;
+            z-index: -1;
+            transform: scaleY(1);
+            animation: f 2s infinite ease-in-out;
+        }
+
+        @keyframes melt {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(20px);
+            }
+        }
+
+        @keyframes f {
+            0%, 100% {
+                transform: scaleY(1);
+            }
+            50% {
+                transform: scaleY(1.5);
+            }
+        }
+
+        .main-content {
+            display: flex;
+            flex-direction: row;
+            width: 100vw;
+            height: calc(100vh - 80px);
+            padding-right: 2vw;
+        }
+
+        #wordCount {
+            flex: 1;
+        }
+
+        svg {
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+</head>
+
+<body class="text-primary-emphasis bg-secondary-subtle">
+    <nav class="pe-3 navbar navbar-dark bg-dark rounded-bottom text-white">
+        <a class="navbar-brand fs-2" href="#">
+            <img src="static/images/salt_shaker.png" width="50" height="50" style="transform: rotate(20deg);" class="d-inline-block align-top" alt="">
+            SALT&PEPPER
+        </a>
+        <div class="melting-text-container">
+            <h1 class="melting-text">FAKEOUT</h1>
+        </div>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="ps-3 navbar-nav">
+                <a class="nav-item nav-link active" href="/">Home</a>
+                <a class="nav-item nav-link" href="/dashboard">Dashboard</a>
+                <a class="nav-item nav-link" href="/analyze">Analyze</a>
+                <a class="nav-item nav-link" href="/search">Search</a>
+                <a class="nav-item nav-link" href="/generate">Generate</a>
+                <a class="nav-item nav-link" href="/logout">Log Out</a>
+            </div>
+        </div>
+    </nav>
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+        {% for message in messages %}
+            <div class="border border-danger rounded text-danger fs-4 p-2 m-3 bg-danger bg-opacity-10 text-center fw-bold">{{ message }}</div>
+        {% endfor %}
+    {% endif %}
+    {% endwith %}
+
+    <div class="main-content">
+        <div id="wordCount"></div>
+    </div>
+
+    <script>
+        d3.json("https://ankita320.github.io/S-P-JSON-FILE/pleasework.json", function(data) {
+            const selected = [...data].sort(() => 0.5 - Math.random()).slice(0, 75);
+
+            const container = document.getElementById("wordCount");
+            const width = container.clientWidth;
+            const height = container.clientHeight;
+
+            const svg = d3.select("#wordCount")
+                .append("svg")
+                .attr("width", width)
+                .attr("height", height)
+                .append("g")
+                .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
+
+            const layout = d3.layout.cloud()
+                .size([width, height])
+                .words(selected.map(d => ({ text: d.name, size: d.count, color: d.color })))
+                .padding(20)
+                .rotate(() => ~~(Math.random() * 2) * 67)
+                .fontSize(d => Math.min(Math.max(d.size, 12), 100))
+                .on("end", draw);
+
+            layout.start();
+
+            function draw(words) {
+                svg.selectAll("text")
+                    .data(words)
+                    .enter().append("text")
+                    .style("font-size", d => `${d.size}px`)
+                    .style("fill", d => d.color)
+                    .attr("text-anchor", "middle")
+                    .style("font-family", "Arial")
+                    .style("font-weight", "bold")
+                    .attr("transform", d => `translate(${d.x},${d.y}) rotate(${d.rotate})`)
+                    .text(d => d.text);
+            }
+        });
+    </script>
+</body>
+</html>

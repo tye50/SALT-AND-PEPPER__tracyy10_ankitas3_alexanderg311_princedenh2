@@ -14,6 +14,7 @@ import shutil
 
 from db import *
 
+
 app = Flask(__name__)
 secret = os.urandom(32)
 app.secret_key = secret
@@ -21,9 +22,8 @@ app.secret_key = secret
 @app.route("/")
 def main():
     if 'username' in session:
-        return redirect("/dashboard")
+        return redirect("/home")
     return render_template("main.html")
-
 
 @app.route("/login", methods=['GET','POST'])
 def login():
@@ -64,6 +64,12 @@ def dashboard():
         return redirect("/")
     return render_template("dashboard.html")
 
+@app.route("/home")
+def home():
+    if 'username' not in session:
+        flash("Please log in to access this page.")
+        return redirect("/")
+    return render_template("home.html")
 
 @app.route("/search", methods=['GET','POST'])
 def search():
@@ -87,7 +93,7 @@ def search():
     plt.ylabel("Count")
     plt.title(query)
     plt.savefig('torf.png')
-    shutil.move("./torf.png", "static/torf.png")
+    # shutil.move("./torf.png", "static/torf.png")
     plt.close()
     return render_template("search.html", query=query, count=count, words=words, countR=countR, wordsR=wordsR)
 
@@ -124,7 +130,7 @@ def logout():
     
 if __name__ == "__main__":
     app.debug = True
-    model = pickle.load(open("finalized_model.sav", "rb"))
-    news_classifier.fit_tfidf_vectorizer()
+    # model = pickle.load(open("finalized_model.sav", "rb"))
+    # news_classifier.fit_tfidf_vectorizer()
     print("Model loaded")
     app.run()
